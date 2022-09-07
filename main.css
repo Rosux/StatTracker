@@ -1,0 +1,7 @@
+body > form:not(:first-child){
+    padding-top: 20px;
+}
+.errormessage{
+    width: fit-content;
+    margin-top: 15px;
+}
