@@ -5,12 +5,10 @@
     session_start();
     $x = false;
     if(!isset($userEmail) || !isset($userName) || !isset($userPassword)){
-        // not all fields are filled in
         $_SESSION['registerError'] .= "not all fields are filled in<br>";
         $x = true;
     }
     if(strlen($userName)>30){
-        // username is too long or short or contains illegal chars;
         $_SESSION['registerError'] .= "username is too long<br>";
         $x = true;
     }
@@ -23,33 +21,27 @@
         $x = true;
     }
     if(!filter_var($userEmail, FILTER_VALIDATE_EMAIL)){
-        // email niet geldig;
         $_SESSION['registerError'] .= "Email is not valid<br>";
         $x = true;
     }
     $passFilter = "/^\S*(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])(?=\S*[\W])\S*$/";
     if(!preg_match($passFilter, $userPassword) || strlen($userPassword) < 8 || strlen($userPassword) > 40){
-        // pass not strong enough;
         $_SESSION['registerError'] .= "Password is not strong enough<br>";
         $x = true;
     }
     if($x){
-        // error
-        header("Location: ./index.php");
+        header("Location: ../pages/register.php");
         exit();
     }
     // proceed with uploading to db then redirect to home page
     require_once "./user.php";
     $user = new User();
-    $user->register();
-    $registerUser = [
-        "name" => $userName,
-        "email" => $userEmail,
-        "password" => $userPassword
-    ];
-    
-    // $_SESSION['registerError'] = "Email already in use<br>";
-    // $_SESSION['registerError'] = "Error while registering account. try again later.<br>";
-    
-    
+    $result = $user->register($userName, $userEmail, $userPassword);
+    if($result == 1){
+        $_SESSION['registerError'] = "Email already in use<br>";
+    }elseif($result == 2){
+        $_SESSION['registerError'] = "Error while registering account. try again later.<br>";
+    }else{
+        header("Location: ../pages/home.php");
+    }
 ?>

@@ -12,7 +12,7 @@
     <script src="main.js"></script>
 </head>
 <body>
-    <form action="register.php" method="POST">
+    <form action="../php/register.php" method="POST">
         <h1>Register</h1>
         <input type="text" name="registerUsername" placeholder="Username"><br>
         <input type="email" name="registerEmail" placeholder="Email"><br>
@@ -27,7 +27,7 @@
             ?>
         </div>
     </form>
-    <form action="login.php" method="POST">
+    <form action="../php/login.php" method="POST">
         <h1>Login</h1>
         <input type="email" name="loginEmail" placeholder="Email"><br>
         <input type="password" name="loginPassword" placeholder="Password"><br>
