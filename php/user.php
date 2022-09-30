@@ -9,11 +9,10 @@
 
 
 class User {
-    public $pdo = "./pdo.php";
+    public $pdo = "pdo.php";
     public $home = "../pages/home.php";
     public $login = "../pages/login.php";
     public $logout = "../pages/logout.php";
-    public $cookieName = "stat-tracker-tokn";
 
     private $conn;
     public $id;
@@ -25,7 +24,9 @@ class User {
     public function __construct() {
         require_once $this->pdo;
         $this->conn = $conn;
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if($this->checkLoggedIn() == 0){
             $this->setUserData();
         }
@@ -35,7 +36,7 @@ class User {
         $stmt = $this->conn->prepare("SELECT * FROM users WHERE id=?");
         if(!$stmt->execute([$_SESSION["id"]])){
             $this->logout();
-            header("Location: " + $this->login);
+            header("Location: " . $this->login);
             exit();
         }
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -68,21 +69,6 @@ class User {
             return 2;
         }
         return 0;
-    }
-
-    
-    public function getUser($id){
-        // error codes:
-        // 1 = couldnt find user / user does not exist
-        $stmt = $this->conn->prepare("SELECT * FROM users WHERE id=?");
-        $stmt->execute([
-            $id
-        ]);
-        if($stmt->rowCount() == 0){
-            return 1;
-        }
-        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $data;
     }
 
     // public function updateUser(){
@@ -165,16 +151,16 @@ class User {
                 return 3;
             }
             // set cookie and make checklogin func
-            setcookie($this->$cookieName, $logintoken, time() + (86400 * 30), "/", "", true, true);
+            setcookie("stat-tracker-tokn", $logintoken, time() + (86400 * 30), "/", "", true, true);
             return 0;
         }
         return 0;
     }
 
     public function logout(){
-        if (isset($_COOKIE[$this->$cookieName])) {
-            unset($_COOKIE[$this->$cookieName]); 
-            setcookie($this->$cookieName, null, -1, '/');
+        if (isset($_COOKIE["stat-tracker-tokn"])) {
+            unset($_COOKIE["stat-tracker-tokn"]); 
+            setcookie("stat-tracker-tokn", null, -1, '/');
         }
         session_unset();
         session_destroy();
@@ -191,7 +177,7 @@ class User {
     public function protectPage(){
         if($this->checkLoggedIn() != 0){
             $this->logout();
-            header("Location: " + $this->login);
+            header("Location: " . $this->login);
             exit();
         }
     }

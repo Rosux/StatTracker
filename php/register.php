@@ -1,31 +1,31 @@
 <?php
-    $userName = $_POST["registerUsername"];
-    $userEmail = $_POST["registerEmail"];
-    $userPassword = $_POST["registerPassword"];
+    $name = $_POST["registerUsername"];
+    $email = $_POST["registerEmail"];
+    $password = $_POST["registerPassword"];
     session_start();
     $x = false;
-    if(!isset($userEmail) || !isset($userName) || !isset($userPassword)){
+    if(!isset($email) || !isset($name) || !isset($password)){
         $_SESSION['registerError'] .= "not all fields are filled in<br>";
         $x = true;
     }
-    if(strlen($userName)>30){
+    if(strlen($name)>30){
         $_SESSION['registerError'] .= "username is too long<br>";
         $x = true;
     }
-    if(strlen($userName)<4){
+    if(strlen($name)<4){
         $_SESSION['registerError'] .= "username is too short<br>";
         $x = true;
     }
-    if(preg_match('/[^A-Za-z]/', $userName)){
+    if(preg_match('/[^A-Za-z]/', $name)){
         $_SESSION['registerError'] .= "username can only containt a-Z<br>";
         $x = true;
     }
-    if(!filter_var($userEmail, FILTER_VALIDATE_EMAIL)){
+    if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
         $_SESSION['registerError'] .= "Email is not valid<br>";
         $x = true;
     }
     $passFilter = "/^\S*(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])(?=\S*[\W])\S*$/";
-    if(!preg_match($passFilter, $userPassword) || strlen($userPassword) < 8 || strlen($userPassword) > 40){
+    if(!preg_match($passFilter, $password) || strlen($password) < 8 || strlen($password) > 40){
         $_SESSION['registerError'] .= "Password is not strong enough<br>";
         $x = true;
     }
@@ -36,12 +36,12 @@
     // proceed with uploading to db then redirect to home page
     require_once "./user.php";
     $user = new User();
-    $result = $user->register($userName, $userEmail, $userPassword);
+    $result = $user->register($name, $email, $password);
     if($result == 1){
         $_SESSION['registerError'] = "Email already in use<br>";
     }elseif($result == 2){
         $_SESSION['registerError'] = "Error while registering account. try again later.<br>";
-    }else{
+    }elseif($result == 0){
         header("Location: ../pages/home.php");
     }
 ?>
