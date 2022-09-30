@@ -171,9 +171,6 @@ class User {
         return 0;
     }
 
-    public static function s(){
-
-    }
     public function logout(){
         if (isset($_COOKIE[$cookieName])) {
             unset($_COOKIE[$cookieName]); 
@@ -197,6 +194,34 @@ class User {
             header("Location: " + $login);
             exit();
         }
+    }
+
+    public function updateGoals($goals){
+        // error codes:
+        // 1 = couldnt update row
+        $stmt = $this->conn->prepare("UPDATE users SET goals=? WHERE id=?");
+        $stmt->execute([
+            $goals,
+            $this->id
+        ]);
+        if($stmt->rowCount() == 0){
+            return 1;
+        }
+        return 0;
+    }
+    
+    public function updateAssists($assists){
+        // error codes:
+        // 1 = couldnt update row
+        $stmt = $this->conn->prepare("UPDATE users SET assists=? WHERE id=?");
+        $stmt->execute([
+            $assists,
+            $this->id
+        ]);
+        if($stmt->rowCount() == 0){
+            return 1;
+        }
+        return 0;
     }
 }
 ?>
