@@ -6,9 +6,9 @@
 
 // pages for easy linking
 $pdo = "./pdo.php";
-$home = "./home.php";
-$login = "./login.php";
-$logout = "./logout.php";
+$home = "pages/home.php";
+$login = "pages/login.php";
+$logout = "pages/logout.php";
 $cookieName = "stat-tracker-tokn";
 
 
