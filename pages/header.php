@@ -7,6 +7,7 @@
                 echo '
                     <a href="logout.php">Logout</a>
                     <a href="settings.php">Settings</a>
+                    <a href="profile.php">Profile</a>
                 ';
             }else{
                 echo '
