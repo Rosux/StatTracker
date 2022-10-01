@@ -1,2 +1,7 @@
 for routing in future:
 https://www.modernways.be/myap/it/page/programming/php/php%20mvc/PHP%20Routing.html
+
+
+TODO
+make function in user class to get teams and goals/assists from that team
+implement my own tooltips

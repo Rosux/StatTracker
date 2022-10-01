@@ -1,0 +1,29 @@
+.stat-wrapper{
+    width: 40%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, fit-content());
+    column-gap: 4rem;
+}
+.stat-wrapper > .stat-title{
+    width: 100%;
+    font-size: 1.5rem;
+    padding-bottom: 2rem;
+    grid-area: 1 / 1 / 2 / 3;
+}
+.stat-card{
+    width: 100%;
+    aspect-ratio: 1/1;
+    background-color: var(--accent-color-1);
+    border-radius: 4em;
+    font-size: 1rem;
+    display: grid;
+    grid-template-rows: 1fr 1fr; 
+}
+.stat-card-counter-text, .stat-card-counter-number{
+    justify-self: center;
+    font-size: 3em;
+}
+.stat-card-counter-text{align-self: flex-end;}
+.stat-card-counter-number{align-self: flex-start;}

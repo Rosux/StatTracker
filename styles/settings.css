@@ -1,0 +1,23 @@
+.settings-wrapper{
+    width: 30%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.settings-row{
+    padding: .5em 1em;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.settings-row > .setting-description{
+    width: fit-content;
+    font-size: 1.5em;
+}
+.settings-row > .settings-input{width: fit-content;}
+.settings-row{border-bottom: solid 1px var(--text-color);}
+.settings-row:last-child{border-bottom: none;}
