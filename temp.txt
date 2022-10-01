@@ -8,3 +8,13 @@ also make function in user class to add user to teams/remove/etc
 implement my own tooltips
 
 make profile page use ?user=69 id to show user's stats
+
+
+
+
+temp = get all games player played in from user.php
+should return list of game objects
+
+
+
+teams page to spectate teams and their goals

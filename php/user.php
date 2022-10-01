@@ -29,7 +29,7 @@ class User {
         $stmt = $this->conn->prepare("SELECT * FROM users WHERE id=?");
         if(!$stmt->execute([$_SESSION["id"]])){
             $this->logout();
-            header("Location: " . $this->login);
+            header("Location: " . "../pages/login.php");
             exit();
         }
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -170,7 +170,7 @@ class User {
     public function protectPage(){
         if($this->checkLoggedIn() != 0){
             $this->logout();
-            header("Location: " . $this->login);
+            header("Location: " . "../pages/login.php");
             exit();
         }
     }

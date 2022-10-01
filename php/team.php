@@ -11,7 +11,7 @@ class Team {
     public $name;
     public $players;
 
-    public function __construct() {
+    public function __construct($id) {
         require_once $this->pdo;
         $this->conn = $conn;
     }

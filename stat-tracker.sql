@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 30 sep 2022 om 21:31
--- Serverversie: 10.4.24-MariaDB
--- PHP-versie: 8.1.6
+-- Generation Time: Oct 01, 2022 at 09:44 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,11 +24,27 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `goals`
+-- Table structure for table `games`
+--
+
+CREATE TABLE `games` (
+  `id` int(11) NOT NULL,
+  `team1_id` int(11) NOT NULL,
+  `team2_id` int(11) NOT NULL,
+  `scoreteam1_score` int(11) NOT NULL,
+  `scoreteam2_score` int(11) NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `goals`
 --
 
 CREATE TABLE `goals` (
   `id` int(11) DEFAULT NULL,
+  `amount` int(11) NOT NULL,
   `userid` int(11) NOT NULL,
   `teamid` int(11) NOT NULL,
   `gameid` int(11) NOT NULL
@@ -37,7 +53,7 @@ CREATE TABLE `goals` (
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `teams`
+-- Table structure for table `teams`
 --
 
 CREATE TABLE `teams` (
@@ -49,7 +65,7 @@ CREATE TABLE `teams` (
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -57,49 +73,64 @@ CREATE TABLE `users` (
   `name` varchar(40) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `goals` int(11) NOT NULL DEFAULT 0,
-  `assists` int(11) NOT NULL DEFAULT 0,
-  `login_token` varchar(255) DEFAULT NULL
+  `goals` int(32) NOT NULL DEFAULT 0,
+  `assists` int(32) NOT NULL DEFAULT 0,
+  `login_token` varchar(255) DEFAULT NULL,
+  `admin` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Gegevens worden geëxporteerd voor tabel `users`
+-- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `goals`, `assists`, `login_token`) VALUES
-(13, '123456', 'asd@asd.asd', '$2y$10$Ngn7uxgtMVW1OwKpv6la6eh1oDca0gwHLxUd4GNJphukfNcRdiqMq', 1, 0, NULL);
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `goals`, `assists`, `login_token`, `admin`) VALUES
+(13, '123456', 'asd@asd.asd', '$2y$10$Ngn7uxgtMVW1OwKpv6la6eh1oDca0gwHLxUd4GNJphukfNcRdiqMq', 1, 0, NULL, 0),
+(14, 'dswadwa', 'dwadw@dad.dd', '$2y$10$IRb7mEz3LsBJKmjzBxC40OuxIDUgNyDOGg9.ncWt22FGnSAxbjIfy', 0, 0, NULL, 0),
+(17, 'uwuwu', 'uwu@uwu.uwu', '$2y$10$ysLdWOVasxvgR7eKYKlPgu3R9yrDApx2Nh33PIKSvJY58VzQWfMh6', 69, 420, NULL, 0);
 
 --
--- Indexen voor geëxporteerde tabellen
+-- Indexes for dumped tables
 --
 
 --
--- Indexen voor tabel `teams`
+-- Indexes for table `games`
+--
+ALTER TABLE `games`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `teams`
 --
 ALTER TABLE `teams`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexen voor tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT voor geëxporteerde tabellen
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT voor een tabel `teams`
+-- AUTO_INCREMENT for table `games`
+--
+ALTER TABLE `games`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `teams`
 --
 ALTER TABLE `teams`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT voor een tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

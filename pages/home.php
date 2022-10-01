@@ -34,7 +34,7 @@
     </div>
     <div class="center">
         <div class="teams-title-wrapper">
-            <p class="teams-title">Teams:</p>
+            <p class="teams-title">Goals per team:</p>
             <table class="teams-wrapper shadow">
                 <tr class="team-row">
                     <th>Team Name:</th>
