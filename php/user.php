@@ -4,15 +4,8 @@
 // 0 = always true / successfull operation
 // 1-9 = false+errorCode
 
-// pages for easy linking
-
-
-
 class User {
     public $pdo = "pdo.php";
-    public $home = "../pages/home.php";
-    public $login = "../pages/login.php";
-    public $logout = "../pages/logout.php";
 
     private $conn;
     public $id;
