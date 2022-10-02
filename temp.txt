@@ -17,4 +17,7 @@ should return list of game objects
 
 
 
-teams page to spectate teams and their goals
+teams page to spectate teams and their goals per match etc
+
+
+impement try catch errors instead of integer returns

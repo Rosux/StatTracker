@@ -12,7 +12,7 @@ class Team {
     public $players;
 
     public function __construct($id) {
-        require_once $this->pdo;
+        require $this->pdo;
         $this->conn = $conn;
     }
 

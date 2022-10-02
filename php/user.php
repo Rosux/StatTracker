@@ -15,7 +15,7 @@ class User {
     public $assists;
 
     public function __construct() {
-        require_once $this->pdo;
+        require $this->pdo;
         $this->conn = $conn;
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -27,7 +27,8 @@ class User {
 
     private function setUserData() {
         $stmt = $this->conn->prepare("SELECT * FROM users WHERE id=?");
-        if(!$stmt->execute([$_SESSION["id"]])){
+        $stmt->execute([$_SESSION["id"]]);
+        if($stmt->rowCount() == 0){
             $this->logout();
             header("Location: " . "../pages/login.php");
             exit();

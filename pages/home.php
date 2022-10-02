@@ -10,6 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - StatTracker</title>
+    <link rel="icon" type="image/png" href="../images/ico.png"/>
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="../styles/stats.css">
     <link rel="stylesheet" href="../styles/teams.css">
@@ -34,7 +35,7 @@
     </div>
     <div class="center">
         <div class="teams-title-wrapper">
-            <p class="teams-title">Goals per team:</p>
+            <p class="teams-title">Points per team:</p>
             <table class="teams-wrapper shadow">
                 <tr class="team-row">
                     <th>Team Name:</th>

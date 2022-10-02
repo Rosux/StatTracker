@@ -16,7 +16,7 @@ class Game {
     public function __construct($id) {
         // error codes:
         // 1 = game not found (id wrong)
-        require_once $this->pdo;
+        require $this->pdo;
         $this->conn = $conn;
         // SELECT * FROM games WHERE id = $id
         $stmt = $this->conn->prepare("SELECT * FROM games WHERE id=?");
