@@ -81,6 +81,15 @@ class User {
     //         return false;
     //     }
     // }
+    public function updatePassword($newpassword, $password){
+        return 1;
+    }
+    public function updateName($newName, $password){
+        return 1;
+    }
+    public function updateEmail($newemail, $password){
+        return 1;
+    }
 
     public function changePasswords($oldpassword, $newpassword){
         // error codes:

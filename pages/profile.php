@@ -31,7 +31,7 @@
         <!-- profile not set show temp error -->
         <div class="center">
             <p>User Profile Not Found</p>
-            <a href="profile.php" class="button">Click here to get back to your profile</a>
+            <a href="profile.php?user=<?php echo $user->id ?>" class="button">Click here to get back to your profile</a>
         </div>
     <?php }else{ ?>
         <!-- profile is set -->
