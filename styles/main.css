@@ -1,10 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap');
-:root{
+
+/*
+lightmode:
+    --header-color: hsl(0, 0%, 80%);
+    --text-color: hsl(0, 0%, 17%);
+    --background-color: hsl(0, 0%, 91%);
+    --accent-color-1: hsl(0, 0%, 87%);
+    --accent-color-2: hsl(0, 0%, 81%);
+darkmode:
     --header-color: hsl(0, 0%, 20%);
     --text-color: #d3d3d3;
     --background-color: hsl(0, 0%, 9%);
     --accent-color-1: #202020;
     --accent-color-2: #303030;
+*/
+
+:root{
+    --header-color: hsl(0, 0%, 20%);
+    --text-color: hsl(0, 0%, 83%);
+    --background-color: hsl(0, 0%, 9%);
+    --accent-color-1: hsl(0, 0%, 13%);
+    --accent-color-2: hsl(0, 0%, 19%);
     --font: 'Noto Sans', sans-serif;
 }
 body, html{
@@ -18,6 +34,9 @@ body, html{
     display: flex;
     flex-direction: column;
 }
+body{
+    padding-top: 3.5rem;
+}
 p, a, h1, h2, h3, h4, h5, h6, ul{
     padding: 0;
     margin: 0;
@@ -26,9 +45,6 @@ p, a, h1, h2, h3, h4, h5, h6, ul{
 }
 *{
     box-sizing: border-box;
-}
-body:nth-child(2){
-    padding-top: 3.5rem;
 }
 .welcome{
     width: 100%;
@@ -65,6 +81,7 @@ body:nth-child(2){
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 999;
 }
 .header > p{
     font-size: 2rem;
@@ -99,6 +116,7 @@ body:nth-child(2){
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: auto;
 }
 .footer{
     width: 40%;

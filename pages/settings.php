@@ -13,6 +13,7 @@
     <link rel="icon" type="image/png" href="../images/ico.png"/>
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="../styles/settings.css">
+    <script src="../scripts/main.js"></script>
 </head>
 <body>
     <?php require_once("header.php"); ?>
@@ -27,7 +28,7 @@
                 <p class="setting-description">Dark mode</p>
                 <div class="settings-input">
                     <div class="button-switch">
-                        <input type="checkbox" id="darkmode">
+                        <input type="checkbox" id="darkmode" darkmode-selector="1">
                         <label for="darkmode"><p>Dark</p><p>Bright</p></label>
                     </div>
                 </div>

@@ -12,6 +12,7 @@
     <title>Login - StatTracker</title>
     <link rel="icon" type="image/png" href="../images/ico.png"/>
     <link rel="stylesheet" href="../styles/main.css">
+    <script src="../scripts/main.js"></script>
 </head>
 <body>
     <?php require_once("header.php"); ?>

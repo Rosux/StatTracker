@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="../styles/stats.css">
     <link rel="stylesheet" href="../styles/teams.css">
+    <script src="../scripts/main.js"></script>
 </head>
 <body>
     <?php require_once("header.php"); ?>
