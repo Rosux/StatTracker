@@ -43,6 +43,17 @@
                     <th>Team Goals:</th>
                     <th>Team Assists:</th>
                 </tr>
+
+
+
+
+                <?php
+                    $teams = $user->getTeams();
+                ?>
+
+
+
+
                 <tr class="team-row">
                     <td>Name</td>
                     <td>Goals</td>
