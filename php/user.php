@@ -212,5 +212,20 @@ class User {
         }
         return 0;
     }
+
+    public function getTeams(){
+        $stmt = $this->conn->prepare("SELECT * FROM teams WHERE =?");
+        $stmt->execute([$_SESSION["id"]]);
+        if($stmt->rowCount() == 0){
+            return 0;
+        }
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $total = 0;
+        for($i=0;$i<$stmt->rowCount();$i++){
+            $total += $data[$i]["amount"];
+        }
+        $this->goals = $total;
+        return $total;
+    }
 }
 ?>
