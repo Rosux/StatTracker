@@ -3,4 +3,5 @@
     $user = new User();
     $result = $user->logout();
     header("Location: ../pages/index.php");
+    exit();
 ?>

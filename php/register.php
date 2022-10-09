@@ -39,8 +39,10 @@
     $result = $user->register($name, $email, $password);
     if($result == 1){
         $_SESSION['registerError'] = "Email already in use<br>";
+        header("Location: ../pages/register.php");
     }elseif($result == 2){
         $_SESSION['registerError'] = "Error while registering account. try again later.<br>";
+        header("Location: ../pages/register.php");
     }elseif($result == 0){
         header("Location: ../pages/home.php");
     }

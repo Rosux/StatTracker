@@ -1,4 +1,4 @@
-<div class="footer-wrapper">
+<div class="footer-wrapper noise-texture">
     <div class="footer">
         <div class="links">
             <a href="home.php">Home</a>

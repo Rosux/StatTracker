@@ -1,4 +1,4 @@
-<div class="header shadow">
+<div class="header shadow noise-texture">
     <p>Stat-Tracker<a href="index.php">About</a></p>
     <div class="header-links">
         <a href="home.php">Home</a>

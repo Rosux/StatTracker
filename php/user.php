@@ -132,7 +132,7 @@ class User {
             return 1;
         }
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        if(!password_verify($password, $data[0]["password"])){   
+        if(!password_verify($password, $data[0]["password"])){
             return 2;
         }
         $stmt = $this->conn->prepare("UPDATE users SET login_token=? WHERE email=?");
@@ -225,8 +225,19 @@ class User {
         return $data;
     }
 
-    public function getTeamGoals(){
-        
+    public function getTeam($id){
+        $stmt = $this->conn->prepare("SELECT * FROM teams WHERE id=?");
+        $stmt->execute([$id]);
+        if($stmt->rowCount() == 0){
+            return 0;
+        }
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+    }
+
+    public function getTeamPlayerGoals($teamId, $userId){
+
     }
 }
+
 ?>

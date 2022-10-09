@@ -36,39 +36,28 @@
     </div>
     <div class="center">
         <div class="teams-title-wrapper">
-            <p class="teams-title">Points per team:</p>
+            <p class="teams-title">Your points per team:</p>
             <table class="teams-wrapper shadow">
                 <tr class="team-row">
                     <th>Team Name:</th>
                     <th>Team Goals:</th>
                     <th>Team Assists:</th>
                 </tr>
-
-
-
-
                 <?php
+                    // $teams["id"] || $teams["name"] || $teams["players"] = id (still gotta json parse it)
                     $teams = $user->getTeams();
+                    if($teams == 0){
+                        echo '<tr class="team-row"><td>No Team</td><td>No Team</td><td>No Team</td>';
+                    }else{
+                        foreach($teams as $team){
+                            // echo $team["name"];
+                            $user_points = json_decode($team["players"], true);
+                            echo '<tr class="team-row"><td><a href="team.php?team='.$team["id"].'">'.$team["name"].'</a></td>';
+                            echo '<td>'.$user_points[$user->id]["goals"].'</td>';
+                            echo '<td>'.$user_points[$user->id]["assists"].'</td>';
+                        }
+                    }
                 ?>
-
-
-
-
-                <tr class="team-row">
-                    <td>Name</td>
-                    <td>Goals</td>
-                    <td>Assists</td>
-                </tr>
-                <tr class="team-row">
-                    <td>Name</td>
-                    <td>Goals</td>
-                    <td>Assists</td>
-                </tr>
-                <tr class="team-row">
-                    <td>Name</td>
-                    <td>Goals</td>
-                    <td>Assists</td>
-                </tr>
             </table>
         </div>
     </div>

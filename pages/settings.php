@@ -44,7 +44,7 @@
                         <input type="text" name="updateUsername" placeholder="Username">
                     </div>
                     <div class="settings-save">
-                        <input type="submit" name="Save" value="Save" class="shadow-small"/>
+                        <input type="submit" name="SaveUsername" value="Save" class="shadow-small"/>
                     </div>
 
                 </form>
@@ -56,10 +56,10 @@
             
                     <p class="setting-description">E-mail</p>
                     <div class="settings-input">
-                        <input type="text" name="updateUsername" placeholder="E-mail">
+                        <input type="text" name="updateEmail" placeholder="E-mail">
                     </div>
                     <div class="settings-save">
-                        <input type="submit" name="Save" value="Save" class="shadow-small"/>
+                        <input type="submit" name="SaveEmail" value="Save" class="shadow-small"/>
                     </div>
 
                 </form>
@@ -71,10 +71,10 @@
             
                     <p class="setting-description">Password</p>
                     <div class="settings-input">
-                        <input type="password" name="updateUsername" placeholder="Password">
+                        <input type="password" name="updatePassword" placeholder="Password">
                     </div>
                     <div class="settings-save">
-                        <input type="submit" name="Save" value="Save" class="shadow-small"/>
+                        <input type="submit" name="SavePassword" value="Save" class="shadow-small"/>
                     </div>
 
                 </form>

@@ -1,5 +1,6 @@
 <?php
-    session_start();
+    require_once "../php/user.php";
+    $user = new User();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -7,39 +8,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>stat-tracker</title>
-    <link rel="stylesheet" href="main.css">
-    <script src="main.js"></script>
+    <title>About - StatTracker</title>
+    <link rel="icon" type="image/png" href="../images/ico.png"/>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/about.css">
+    <script src="../scripts/main.js"></script>
 </head>
 <body>
-    <form action="../php/register.php" method="POST">
-        <h1>Register</h1>
-        <input type="text" name="registerUsername" placeholder="Username"><br>
-        <input type="email" name="registerEmail" placeholder="Email"><br>
-        <input type="password" name="registerPassword" placeholder="Password"><br>
-        <input type="submit" value="Register"><br>
-        <div class="errormessage registererror">
-            <?php
-                if(isset($_SESSION['registerError'])){
-                    echo `<p>`.$_SESSION['registerError'].`</p>`;
-                    unset($_SESSION["registerError"]);
-                }
-            ?>
+    <?php require_once("header.php"); ?>
+
+    <div class="lander">
+        <div class="text-wrapper shadow">
+            <h1>Keep Track Of Your Stats!</h1>
+            <h3>Now made easy</h3>
         </div>
-    </form>
-    <form action="../php/login.php" method="POST">
-        <h1>Login</h1>
-        <input type="email" name="loginEmail" placeholder="Email"><br>
-        <input type="password" name="loginPassword" placeholder="Password"><br>
-        <input type="submit" value="Register"><br>
-        <div class="errormessage loginerror">
-            <?php
-                if(isset($_SESSION['loginError'])){
-                    echo `<p>`.$_SESSION['loginError'].`</p>`;
-                    unset($_SESSION["loginError"]);
-                }
-            ?>
-        </div>
-    </form>
+        <video class="background-video" muted autoplay loop>
+            <source src="../videos/lander.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <?php require_once("footer.php"); ?>
 </body>
 </html>

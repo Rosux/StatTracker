@@ -3,18 +3,18 @@ https://www.modernways.be/myap/it/page/programming/php/php%20mvc/PHP%20Routing.h
 
 
 TODO
-make function in user class to get teams and goals/assists from that team
-also make function in user class to add user to teams/remove/etc
-implement my own tooltips
-
 
 
 temp = get all recent games player played in from user.php
 should return list of game objects
 
 
-
 teams page to spectate teams and their goals per match etc
 
 
 impement try catch errors instead of integer returns
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  UPDATE THE USER GOALS/ASSISTS WHEN CHANGING TEAM SCORE ETC
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

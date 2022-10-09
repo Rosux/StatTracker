@@ -5,7 +5,7 @@
     session_start();
     $x = false;
     if(!isset($email) || !isset($password)){
-        $_SESSION['registerError'] .= "not all fields are filled in<br>";
+        $_SESSION['loginError'] .= "not all fields are filled in<br>";
         $x = true;
     }
     if($x){
@@ -17,9 +17,11 @@
     $user = new User();
     $result = $user->login($email, $password);
     if($result == 1 || $result == 2){
-        $_SESSION['registerError'] = "Wront username or email<br>";
+        $_SESSION['loginError'] = "Wrong username or email<br>";
+        header("Location: ../pages/login.php");
     }elseif($result == 3){
-        $_SESSION['registerError'] = "Server error, try again later<br>";
+        $_SESSION['loginError'] = "Server error, try again later<br>";
+        header("Location: ../pages/login.php");
     }elseif($result == 0){
         header("Location: ../pages/home.php");
     }
