@@ -13,7 +13,8 @@ if(isset($_POST["SaveUsername"])){
     // update username
 
 
-
+    echo "username";
+    exit();
 
 
 
@@ -21,7 +22,8 @@ if(isset($_POST["SaveUsername"])){
     // update email
 
 
-
+    echo "email";
+    exit();
 
 
 
@@ -29,7 +31,8 @@ if(isset($_POST["SaveUsername"])){
     // update password
 
 
-
+    echo "password";
+    exit();
 
 
 
