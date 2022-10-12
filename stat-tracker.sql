@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 02, 2022 at 09:36 PM
+-- Generation Time: Oct 12, 2022 at 10:47 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -33,8 +33,15 @@ CREATE TABLE `games` (
   `team2_id` int(11) NOT NULL,
   `scoreteam1_score` int(11) NOT NULL,
   `scoreteam2_score` int(11) NOT NULL,
-  `date` datetime NOT NULL
+  `date` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `games`
+--
+
+INSERT INTO `games` (`id`, `team1_id`, `team2_id`, `scoreteam1_score`, `scoreteam2_score`, `date`) VALUES
+(1, 1, 2, 10, 2, '2022-10-02');
 
 -- --------------------------------------------------------
 
@@ -43,12 +50,19 @@ CREATE TABLE `games` (
 --
 
 CREATE TABLE `goals` (
-  `id` int(11) DEFAULT NULL,
+  `id` int(11) NOT NULL,
   `amount` int(11) NOT NULL,
   `userid` int(11) NOT NULL,
   `teamid` int(11) NOT NULL,
   `gameid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `goals`
+--
+
+INSERT INTO `goals` (`id`, `amount`, `userid`, `teamid`, `gameid`) VALUES
+(1, 5, 17, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -59,8 +73,19 @@ CREATE TABLE `goals` (
 CREATE TABLE `teams` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `players` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`players`))
+  `players` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`players`)),
+  `team_goals` int(11) NOT NULL DEFAULT 0,
+  `team_assists` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `teams`
+--
+
+INSERT INTO `teams` (`id`, `name`, `players`, `team_goals`, `team_assists`) VALUES
+(1, 'Team1', '{\"1\":{\"goals\":0,\"assists\":0},\"2\":{\"goals\":0,\"assists\":0},\"3\":{\"goals\":0,\"assists\":0},\"4\":{\"goals\":0,\"assists\":0},\"5\":{\"goals\":0,\"assists\":0},\"6\":{\"goals\":0,\"assists\":0},\"35\":{\"goals\":0,\"assists\":0},\"7\":{\"goals\":0,\"assists\":0},\"8\":{\"goals\":0,\"assists\":0},\"9\":{\"goals\":0,\"assists\":0}}', 0, 0),
+(2, 'Team2', '{\"1\":{\"goals\":0,\"assists\":0},\"2\":{\"goals\":0,\"assists\":0},\"3\":{\"goals\":0,\"assists\":0},\"4\":{\"goals\":0,\"assists\":0},\"5\":{\"goals\":0,\"assists\":0},\"6\":{\"goals\":0,\"assists\":0},\"17\":{\"goals\":3,\"assists\":1},\"7\":{\"goals\":0,\"assists\":0},\"8\":{\"goals\":0,\"assists\":0},\"9\":{\"goals\":0,\"assists\":0}}', 3, 1),
+(3, 'Team3', '{\"1\":{\"goals\":0,\"assists\":0},\"2\":{\"goals\":0,\"assists\":0},\"3\":{\"goals\":0,\"assists\":0},\"4\":{\"goals\":0,\"assists\":0},\"5\":{\"goals\":0,\"assists\":0},\"6\":{\"goals\":0,\"assists\":0},\"17\":{\"goals\":16,\"assists\":5},\"7\":{\"goals\":0,\"assists\":0},\"8\":{\"goals\":0,\"assists\":0},\"9\":{\"goals\":0,\"assists\":0}}', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -99,6 +124,12 @@ ALTER TABLE `games`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `goals`
+--
+ALTER TABLE `goals`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `teams`
 --
 ALTER TABLE `teams`
@@ -118,13 +149,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `games`
 --
 ALTER TABLE `games`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `goals`
+--
+ALTER TABLE `goals`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `teams`
 --
 ALTER TABLE `teams`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
