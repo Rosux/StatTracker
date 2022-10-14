@@ -43,6 +43,9 @@
                     <div class="settings-input">
                         <input type="text" name="updateUsername" placeholder="Username">
                     </div>
+                    <div class="settings-input settings-password">
+                        <input type="password" name="currentPassword" placeholder="Password">
+                    </div>
                     <div class="settings-save">
                         <input type="submit" name="SaveUsername" value="Save" class="shadow-small"/>
                     </div>

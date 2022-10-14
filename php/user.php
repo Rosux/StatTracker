@@ -81,13 +81,23 @@ class User {
     //         return false;
     //     }
     // }
-    public function updatePassword($newpassword, $password){
-        return 1;
-    }
     public function updateName($newName, $password){
-        return 1;
+        // error codes:
+        // 1 = couldnt update row
+        $stmt = $this->conn->prepare("UPDATE users SET name=? WHERE id=?");
+        $stmt->execute([
+            $newName,
+            $this->id
+        ]);
+        if($stmt->rowCount() == 0){
+            return 1;
+        }
+        return 0;
     }
     public function updateEmail($newemail, $password){
+        return 1;
+    }
+    public function updatePassword($newpassword, $password){
         return 1;
     }
 
@@ -233,10 +243,6 @@ class User {
         }
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $data;
-    }
-
-    public function getTeamPlayerGoals($teamId, $userId){
-
     }
 }
 

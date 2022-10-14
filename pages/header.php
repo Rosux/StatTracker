@@ -1,6 +1,12 @@
 <div class="header shadow noise-texture">
     <p>Stat-Tracker<a href="index.php">About</a></p>
     <div class="header-links">
+        <a style="text-decoration: none;font-size:0.8rem;">
+            <div class="button-switch">
+                <input type="checkbox" id="darkmode" darkmode-selector="1">
+                <label for="darkmode"><p>&#127761;</p><p>&#127774;</p></label>
+            </div>
+        </a>
         <a href="home.php">Home</a>
         <?php
             if(isset($user) && $user->checkLoggedIn() == 0){

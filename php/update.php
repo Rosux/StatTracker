@@ -1,19 +1,22 @@
 <?php
-// ---input fields (data)
-// updateUsername
-// updateEmail
-// updatePassword
 
-// ---buttons (post)
-// SaveUsername
-// SaveEmail
-// SavePassword
+require_once "./user.php";
+$user = new User();
+$user->protectPage();
+
+// todo fix
+// if(isset($_POST["currentPassword"])){
+//     header("Location: " . "../pages/settings.php");
+//     exit();
+// }
 
 if(isset($_POST["SaveUsername"])){
     // update username
-
-
-    echo "username";
+    if(!isset($_POST['updateUsername'])){
+        header("Location: " . "../pages/login.php");
+        exit();
+    }
+    echo $_POST['updateUsername'];
     exit();
 
 
