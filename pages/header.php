@@ -9,6 +9,9 @@
         </a>
         <a href="home.php">Home</a>
         <?php
+            if($user->admin == 1){
+                echo '<a href="admin.php">Admin-Panel</a>';
+            }
             if(isset($user) && $user->checkLoggedIn() == 0){
                 echo '
                     <a href="logout.php">Logout</a>

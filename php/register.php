@@ -44,6 +44,7 @@
         $_SESSION['registerError'] = "Error while registering account. try again later.<br>";
         header("Location: ../pages/register.php");
     }elseif($result == 0){
+        $user->login($email, $password);
         header("Location: ../pages/home.php");
     }
 ?>

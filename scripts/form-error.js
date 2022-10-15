@@ -2,6 +2,10 @@ formInputs = document.querySelectorAll("[form-validation]");
 for(i=0;i<formInputs.length;i++){
     formInputs[i].addEventListener("input", (e)=>{
         input = e.target.value;
+        if(input == ""){
+            document.querySelectorAll("[form-error="+e.target.getAttribute("form-validation")+"]")[0].innerHTML = "";
+            return;
+        }
         // checks here
         error = "";
         if(e.target.getAttribute("form-validation") == "username"){

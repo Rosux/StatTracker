@@ -17,6 +17,13 @@
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto;
 }
+.settings-row > form > .settings-input > p.row-error, .settings-row > form > .settings-input > p.row-error-pass{
+    width: 100%;
+    height: fit-content;
+    color: hsl(0, 60%, 49%);
+    font-size: 0.75em;
+    text-align: right;
+}
 .settings-row > form > .setting-description{
     width: fit-content;
     font-size: 1.5em;
@@ -29,12 +36,12 @@
 .settings-row{border-bottom: solid 1px var(--text-color);}
 .settings-row:last-child{border-bottom: none;}
 .settings-row > form > .settings-input{
-    min-width: fit-content;
-    width: 30%;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: flex-end;
     justify-self: flex-end;
+    flex-direction: column;
 }
 .settings-row > form > .settings-input > input{
     background-color: var(--accent-color-2);

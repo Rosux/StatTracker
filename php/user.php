@@ -4,7 +4,7 @@
 // 0 = always true / successfull operation
 // 1-9 = false+errorCode
 
-class User {
+class User{
     public $pdo = "pdo.php";
 
     private $conn;
@@ -13,6 +13,7 @@ class User {
     public $email;
     public $goals;
     public $assists;
+    public $admin;
 
     public function __construct() {
         require $this->pdo;
@@ -39,6 +40,7 @@ class User {
         $this->email = $data[0]["email"];
         $this->goals = $data[0]["goals"];
         $this->assists = $data[0]["assists"];
+        $this->admin = $data[0]["admin"];
     }
 
     public function register($name, $email, $password) {
@@ -83,30 +85,10 @@ class User {
     // }
     public function updateName($newName, $password){
         // error codes:
-        // 1 = couldnt update row
-        $stmt = $this->conn->prepare("UPDATE users SET name=? WHERE id=?");
-        $stmt->execute([
-            $newName,
-            $this->id
-        ]);
-        if($stmt->rowCount() == 0){
-            return 1;
-        }
-        return 0;
-    }
-    public function updateEmail($newemail, $password){
-        return 1;
-    }
-    public function updatePassword($newpassword, $password){
-        return 1;
-    }
-
-    public function changePasswords($oldpassword, $newpassword){
-        // error codes:
         // 1 = user not found
-        // 2 = incorrect old password
-        // 3 = couldnt update row
-        $stmt = $this->conn->prepare("SELECT * FROM users WHERE id=? LIMIT 1");
+        // 2 = current password incorect
+        // 3 = couldnt update user row
+        $stmt = $this->conn->prepare("SELECT * FROM users WHERE id=?");
         $stmt->execute([
             $this->id
         ]);
@@ -114,7 +96,61 @@ class User {
             return 1;
         }
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        if(!password_verify($oldpassword, $data[0]["password"])){
+        if(!password_verify($password, $data[0]["password"])){
+            return 2;
+        }
+        $stmt = $this->conn->prepare("UPDATE users SET name=? WHERE id=?");
+        $stmt->execute([
+            htmlspecialchars($newName),
+            $this->id
+        ]);
+        if($stmt->rowCount() == 0){
+            return 3;
+        }
+        return 0;
+    }
+
+    public function updateEmail($newemail, $password){
+        // error codes:
+        // 1 = user not found
+        // 2 = current password incorect
+        // 3 = couldnt update user row
+        $stmt = $this->conn->prepare("SELECT * FROM users WHERE id=?");
+        $stmt->execute([
+            $this->id
+        ]);
+        if($stmt->rowCount() == 0){
+            return 1;
+        }
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if(!password_verify($password, $data[0]["password"])){
+            return 2;
+        }
+        $stmt = $this->conn->prepare("UPDATE users SET email=? WHERE id=?");
+        $stmt->execute([
+            htmlspecialchars($newemail),
+            $this->id
+        ]);
+        if($stmt->rowCount() == 0){
+            return 3;
+        }
+        return 0;
+    }
+
+    public function updatePassword($newpassword, $password){
+        // error codes:
+        // 1 = user not found
+        // 2 = current password incorect
+        // 3 = couldnt update user row
+        $stmt = $this->conn->prepare("SELECT * FROM users WHERE id=?");
+        $stmt->execute([
+            $this->id
+        ]);
+        if($stmt->rowCount() == 0){
+            return 1;
+        }
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if(!password_verify($password, $data[0]["password"])){
             return 2;
         }
         $stmt = $this->conn->prepare("UPDATE users SET password=? WHERE id=?");
@@ -122,11 +158,10 @@ class User {
             password_hash($newpassword, PASSWORD_DEFAULT),
             $this->id
         ]);
-        if($stmt->rowCount() == 1){
-            return 0;
-        }else{
+        if($stmt->rowCount() == 0){
             return 3;
         }
+        return 0;
     }
 
     public function login($email, $password, $remember=false){
