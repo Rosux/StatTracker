@@ -18,3 +18,14 @@ impement try catch errors instead of integer returns
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   UPDATE THE USER GOALS/ASSISTS WHEN CHANGING TEAM SCORE ETC
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+MAKE THE ADMIN NUMBER BETWEEN 0-3 
+0 = NO ADMIN AT all
+1 = CAN ADD GOALS/POINTS/ASSISTS TO A USER/TEAM
+2 = 1 + CAN ADD PLAYER TO TEAM
+3 = 1 + 2 + CAN GIVE/REMOVE CERTAIN USERS ADMIN RIGHTS/PERMISSIONS
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
