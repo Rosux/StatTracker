@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="../styles/admin.css">
     <script src="../scripts/main.js"></script>
+    <script defer src="../scripts/admin.js"></script>
 </head>
 <body>
     <?php require_once("header.php"); ?>
@@ -21,7 +22,7 @@
         <div class="admin-user-search-wrapper">
             <div class="admin-search-bar shadow">
                 <form action="../php/admin.php" method="POST">
-                    <input type="text" name="username" placeholder="Search For User" autocomplete="off">
+                    <input type="text" name="username" placeholder="Filter For User" autocomplete="off">
                 </form>
             </div>
             <div class="admin-search-result">

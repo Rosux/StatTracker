@@ -15,8 +15,45 @@ class Admin extends User{
         }
     }
 
-    public function adminFindUser($userId){
+    public function adminGetAllUsers(){
+        $stmt = $this->conn->prepare("SELECT id,name,email FROM users");
+        $stmt->execute();
+        if($stmt->rowCount() == 0){
+            return 1;
+        }
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+    }
+    public function adminGetAllFilteredUsers($idFilter="", $nameFilter="", $emailFilter=""){
+        // initialize query
+        $q = "SELECT id,name,email FROM users WHERE 1";
+        // add query filters
+        if($idFilter != ""){$q .= " AND id LIKE :id ";}
+        if($nameFilter != ""){$q .= " AND name LIKE :name ";}
+        if($emailFilter != ""){$q .= " AND email LIKE :email ";}
+        // prepare query
+        $stmt = $this->conn->prepare($q);
+        // bind query parameters
+        if($idFilter != ""){$stmt->bindValue(":id", "%".$idFilter."%", PDO::PARAM_STR);}
+        if($nameFilter != ""){$stmt->bindValue(":name", "%".$nameFilter."%", PDO::PARAM_STR);}
+        if($emailFilter != ""){$stmt->bindValue(":email", "%".$emailFilter."%", PDO::PARAM_STR);}
+        // execute cool awesome custom filtered query
+        $stmt->execute();
+        if($stmt->rowCount() == 0){
+            return 1;
+        }
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+    }
 
+    public function adminGetUser($userId){
+        $stmt = $this->conn->prepare("SELECT * FROM users WHERE id=?");
+        $stmt->execute([$userId]);
+        if($stmt->rowCount() == 0){
+            return 1;
+        }
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
     }
 
     public function adminSetUserGoals($userId, $amount){

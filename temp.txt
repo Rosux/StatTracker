@@ -29,3 +29,10 @@ MAKE THE ADMIN NUMBER BETWEEN 0-3
 2 = 1 + CAN ADD PLAYER TO TEAM
 3 = 1 + 2 + CAN GIVE/REMOVE CERTAIN USERS ADMIN RIGHTS/PERMISSIONS
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+
+u can filter users with this stuff in the text input:
+  name:uwu email:uwu@uwu.uwu id:17
+
+  

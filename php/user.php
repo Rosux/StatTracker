@@ -7,7 +7,7 @@
 class User{
     public $pdo = "pdo.php";
 
-    private $conn;
+    public $conn;
     public $id;
     public $name;
     public $email;
@@ -230,33 +230,33 @@ class User{
         }
     }
 
-    public function updateGoals($goals){
-        // error codes:
-        // 1 = couldnt update row
-        $stmt = $this->conn->prepare("UPDATE users SET goals=? WHERE id=?");
-        $stmt->execute([
-            $goals,
-            $this->id
-        ]);
-        if($stmt->rowCount() == 0){
-            return 1;
-        }
-        return 0;
-    }
-    
-    public function updateAssists($assists){
-        // error codes:
-        // 1 = couldnt update row
-        $stmt = $this->conn->prepare("UPDATE users SET assists=? WHERE id=?");
-        $stmt->execute([
-            $assists,
-            $this->id
-        ]);
-        if($stmt->rowCount() == 0){
-            return 1;
-        }
-        return 0;
-    }
+    // TODO remove soon if safe
+    // public function updateGoals($goals){
+    //     // error codes:
+    //     // 1 = couldnt update row
+    //     $stmt = $this->conn->prepare("UPDATE users SET goals=? WHERE id=?");
+    //     $stmt->execute([
+    //         $goals,
+    //         $this->id
+    //     ]);
+    //     if($stmt->rowCount() == 0){
+    //         return 1;
+    //     }
+    //     return 0;
+    // }
+    // public function updateAssists($assists){
+    //     // error codes:
+    //     // 1 = couldnt update row
+    //     $stmt = $this->conn->prepare("UPDATE users SET assists=? WHERE id=?");
+    //     $stmt->execute([
+    //         $assists,
+    //         $this->id
+    //     ]);
+    //     if($stmt->rowCount() == 0){
+    //         return 1;
+    //     }
+    //     return 0;
+    // }
 
     public function getTeams(){
         // ([^0-9])( ID-HERE )([^0-9])
