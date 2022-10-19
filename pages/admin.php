@@ -20,13 +20,31 @@
     <?php require_once("header.php"); ?>
     <div class="center">
         <div class="admin-user-search-wrapper">
-            <div class="admin-search-bar shadow">
+            <div class="admin-search-bar shadow-small">
                 <form action="../php/admin.php" method="POST">
                     <input type="text" name="username" placeholder="Filter For User" autocomplete="off">
                 </form>
             </div>
-            <div class="admin-search-result">
+            <div class="admin-search-result-wrapper">
+                <div class="admin-search-result">
+                    <div class="admin-search-result-error-row">No Users Found</div>
+                </div>
+                <!-- add page buttons here -->
+                <div class="admin-search-result-page-navigator">
+                    <p style="margin-right: .25rem;">Number Of Rows:</p>
+                    <select class="admin-search-result-row-ammount" style="margin-right: 1rem;">
+                        <option value="10" selected>10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
                 
+                    <button onclick="navigate('min');" style="margin-right: .25rem;"><<</button>
+                    <button onclick="navigate(-1);"><</button>
+                    <p class="current-page-number"></p>
+                    <button onclick="navigate(1);" style="margin-right: .25rem;">></button>
+                    <button onclick="navigate('max');">>></button>
+                </div>
             </div>
         </div>
     </div>

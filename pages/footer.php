@@ -10,6 +10,6 @@
             <a href="profile.php">Profile</a>
             <a href="settings.php">Settings</a>
         </div>
-        <div class="credits"><p>Made by: <a href="https://github.com/Rosux" target="_blank">Jacobus</a></p></div>
+        <div class="credits"><p>Made by: <a href="https://github.com/Rosux" target="_blank">Jacobus</a><p class="small-copyright">©</p></p></div>
     </div>
 </div>

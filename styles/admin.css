@@ -6,19 +6,24 @@
 .admin-user-search-wrapper > .admin-search-bar{
     width: 100%;
     height: fit-content;
+    scale: 1.075;
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
 }
 .admin-user-search-wrapper > .admin-search-bar > form{
     width: 100%;
-    height: fit-content;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    font-size: inherit;
 }
 .admin-user-search-wrapper > .admin-search-bar > form > input{
     width: 100%;
+    height: 100%;
     padding: .5rem;
-    font-size: 1.5rem;
+    font-size: inherit;
     color: var(--text-color);
     background-color: var(--accent-color-2);
     outline: none;
@@ -26,11 +31,59 @@
 }
 .admin-search-result > .admin-search-result-row:nth-child(even){background-color: var(--accent-color-2);}
 .admin-search-result > .admin-search-result-row:nth-child(odd){background-color: var(--accent-color-1);}
-.admin-search-result{
-    overflow: auto;
-    max-height: 16rem;
+.admin-search-result, .admin-search-result-error-row{
+    width: 100%;
 }
-.admin-search-result > .admin-search-result-row{
+.admin-search-result > .admin-search-result-row, .admin-search-result-error-row{
     padding: .5rem 0;
     font-size: 1.2rem;
+}
+.admin-search-result-error-row{
+    text-align: center;
+    color: hsl(0, 60%, 49%);
+}
+/* result wrapper */
+.admin-search-result-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.admin-search-result-page-navigator{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+.admin-search-result-page-navigator > button, .admin-search-result-row-ammount{
+    background-color: var(--accent-color-2);
+    color: var(--text-color);
+    outline: none;
+    border: none;
+    padding: .5rem 1rem;
+    border-radius: .25rem;
+    cursor: pointer;
+}
+.admin-search-result-page-navigator > .current-page-number{
+    width: 3ch;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+}
+.admin-search-result-page-navigator > p{
+    width: fit-content;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+}
+/* row ammount button */
+.admin-search-result-row-ammount{
+    width: fit-content;
+    padding: .5rem .25rem;
 }

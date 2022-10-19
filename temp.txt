@@ -35,4 +35,16 @@ MAKE THE ADMIN NUMBER BETWEEN 0-3
 u can filter users with this stuff in the text input:
   name:uwu email:uwu@uwu.uwu id:17
 
+"UserName id:14 email:@gmail.com" <-- searches with username="UserName" id="14" email="@gmail.com"
+"id:14 email:@gmail.com" <-- searches with id="14" email="@gmail.com"
+"email:@gmail.com" <-- searches with email="@gmail.com"
+"id:14" <-- searches with id="14"
+"UserName" <-- searches with username="UserName"
+
+etc
+
   
+
+
+at player rows select users by clicking on row and saving the userid in a array (js)
+to ajax POST to php 
