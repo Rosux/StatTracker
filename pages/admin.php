@@ -27,7 +27,27 @@
             </div>
             <div class="admin-search-result-wrapper">
                 <div class="admin-search-result">
-                    <div class="admin-search-result-error-row">No Users Found</div>
+
+
+                    <!-- TODO fix shitty broken ass tables -->
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Username</th>
+                                <th>E-mail</th>
+                                <th>Goals</th>
+                                <th>Assists</th>
+                                <th>Edit User</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <span class="admin-search-result-error-row">No Users Found</span>
+                        </tbody>
+                    </table>
+
+
+                    
                 </div>
                 <!-- add page buttons here -->
                 <div class="admin-search-result-page-navigator">
@@ -41,7 +61,7 @@
                 
                     <button onclick="navigate('min');" style="margin-right: .25rem;"><<</button>
                     <button onclick="navigate(-1);"><</button>
-                    <p class="current-page-number"></p>
+                    <p class="current-page-number">1</p>
                     <button onclick="navigate(1);" style="margin-right: .25rem;">></button>
                     <button onclick="navigate('max');">>></button>
                 </div>

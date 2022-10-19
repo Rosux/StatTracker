@@ -1,20 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
-/*
-lightmode:
-    --header-color: hsl(0, 0%, 80%);
-    --text-color: hsl(0, 0%, 17%);
-    --background-color: hsl(0, 0%, 91%);
-    --accent-color-1: hsl(0, 0%, 87%);
-    --accent-color-2: hsl(0, 0%, 81%);
-darkmode:
-    --header-color: hsl(0, 0%, 20%);
-    --text-color: #d3d3d3;
-    --background-color: hsl(0, 0%, 9%);
-    --accent-color-1: #202020;
-    --accent-color-2: #303030;
-*/
-
 :root{
     --header-color: hsl(0, 0%, 20%);
     --text-color: hsl(0, 0%, 83%);
@@ -22,6 +7,7 @@ darkmode:
     --accent-color-1: hsl(0, 0%, 13%);
     --accent-color-2: hsl(0, 0%, 19%);
     --font: 'Noto Sans', sans-serif;
+    --background-ashpalt-texture: url("../images/asfalt-dark.png");
 }
 body, html{
     min-height: 100vh;
@@ -33,6 +19,7 @@ body, html{
     font-weight: 300;
     display: flex;
     flex-direction: column;
+    background-image: var(--background-ashpalt-texture);
 }
 body{
     padding-top: 3.5rem;

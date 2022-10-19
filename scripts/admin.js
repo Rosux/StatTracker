@@ -1,6 +1,6 @@
 searchForm = document.querySelector(".admin-search-bar > form");
 searchInput = document.querySelector(".admin-search-bar > form > input");
-searchResult = document.querySelector(".admin-search-result");
+searchResult = document.querySelector(".admin-search-result > table > tbody");
 searchResultPageNumber = document.querySelector(".current-page-number");
 searchResultRowAmmount = document.querySelector(".admin-search-result-row-ammount");
 
@@ -100,17 +100,20 @@ class Users{
         }
         for(let i=0;i<this.userPages[this.currentPage].length;i++){
 
+
             // making id/name/email easy/short
             let id = this.userPages[this.currentPage][i]["id"];
             let name = this.userPages[this.currentPage][i]["name"];
             let email = this.userPages[this.currentPage][i]["email"];
 
+            // TODO fix shitty broken ass tables
             // CREATE ELEMENT AND ADD INTO ROWS
             const wrapper = document.createElement('div');
             const p = document.createElement('p');
             p.innerHTML += id;
             p.innerHTML += name;
             p.innerHTML += email;
+            p.innerHTML += "Edit user";
             wrapper.classList.add("admin-search-result-row");
             wrapper.appendChild(p);
             searchResult.appendChild(wrapper);
@@ -121,7 +124,7 @@ class Users{
     }
 }
 
-const users = new Users([],0);
+// const users = new Users([],0);
 
 function navigate(ammount){
     users.navigate(ammount);
@@ -132,3 +135,43 @@ postData(searchForm, (e)=>{
     users.updateNewUsers(result)
     users.updateUserDOM();
 });
+
+
+// temp
+// TODO fix shitty broken ass tables
+// setTimeout(function () {
+    
+
+//     searchResult.replaceChildren();
+
+//     const tr = document.createElement('tr');
+
+//     td0 = document.createElement("td");
+//     td1 = document.createElement("td");
+//     td2 = document.createElement("td");
+//     td3 = document.createElement("td");
+//     td4 = document.createElement("td");
+//     td5 = document.createElement("td");
+//     // set data
+//     td0.innerText = "11";
+//     td1.innerText = "Lorem Ipsum";
+//     td2.innerText = "Email@gmail.email";
+//     td3.innerText = "11";
+//     td4.innerText = "420";
+//     td5.innerText = "Edit user";
+//     // append to <tr>
+//     tr.appendChild(td0);
+//     tr.appendChild(td1);
+//     tr.appendChild(td2);
+//     tr.appendChild(td3);
+//     tr.appendChild(td4);
+//     tr.appendChild(td5);
+//     // append to tbody
+//     searchResult.appendChild(tr);
+
+// }, 1000);
+
+
+
+
+// temp

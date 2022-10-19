@@ -21,7 +21,7 @@
 <body>
 <?php require_once("header.php"); ?>
     <div class="center">
-        <div class="form-wrapper">
+        <div class="form-wrapper shadow">
             <p class="form-title">Register</p>
             <form action="../php/register.php" method="POST">
                 <div class="form-row">

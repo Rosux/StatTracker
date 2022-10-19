@@ -19,7 +19,7 @@
 <body>
 <?php require_once("header.php"); ?>
     <div class="center">
-        <div class="form-wrapper">
+        <div class="form-wrapper shadow">
             <p class="form-title" style="text-align: center;margin-bottom: 2rem;">Logout</p>
             <form action="../php/logout.php" method="POST">
                 <div class="form-row form-center">
