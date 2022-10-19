@@ -78,6 +78,9 @@ class Users{
         this.userPages = split;
     }
     navigate(ammount){
+        if(this.userPages[this.currentPage] == undefined){
+            return;
+        }
         if(ammount === "max"){
             this.currentPage = this.userPages.length-1;
             this.updateUserDOM();
