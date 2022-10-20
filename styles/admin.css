@@ -55,9 +55,30 @@
     text-align: left;
     font-size: inherit;
     border-collapse: collapse;
+    table-layout: fixed;
 }
 .admin-search-result > table > tbody > tr > td{
     padding: .5rem 0;
+}
+.admin-search-result > table > tbody > tr > td > button{
+    width: fit-content;
+    height: fit-content;
+    text-align: center;
+    background-color: var(--accent-color-2);
+    border: none;
+    outline: none;
+    color: var(--text-color);
+    padding: .5rem 1rem;
+    border-radius: .4rem;
+    cursor: pointer;
+}
+.admin-search-result > table > tbody > tr:nth-child(even) > td > button{background-color: var(--accent-color-1);}
+.admin-search-result > table > tbody > tr > td > p:hover{
+    overflow-x: auto;
+}
+.admin-search-result > table > tbody > tr > td > p{
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .admin-search-result > table > thead, .admin-search-result > table > tbody > tr:nth-child(even){background-color: var(--accent-color-2);}
 .admin-search-result > table > tbody > tr:nth-child(odd){background-color: var(--accent-color-1);}

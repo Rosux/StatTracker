@@ -26,7 +26,7 @@ class Admin extends User{
     }
     public function adminGetAllFilteredUsers($idFilter="", $nameFilter="", $emailFilter=""){
         // initialize query
-        $q = "SELECT id,name,email FROM users WHERE 1";
+        $q = "SELECT id,name,email,goals,assists FROM users WHERE 1";
         // add query filters
         if($idFilter != ""){$q .= " AND id LIKE :id ";}
         if($nameFilter != ""){$q .= " AND name LIKE :name ";}

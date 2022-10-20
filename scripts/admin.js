@@ -43,7 +43,6 @@ searchInput.addEventListener("input", (e)=>{
 
 searchResultRowAmmount.addEventListener("change", (e)=>{
     users.splitUsers(Number(e.target.value));
-    users.navigate('min');
     users.updateUserDOM();
 })
 
@@ -76,11 +75,13 @@ class Users{
             split.push(this.users.slice(i,i+ammount));
         }
         this.userPages = split;
+        this.navigate("min");
     }
     navigate(ammount){
-        if(this.userPages[this.currentPage] == undefined){
-            return;
-        }
+        // i dont know what this does...
+        // if(this.userPages[this.currentPage] == undefined){
+        //     return;
+        // }
         if(ammount === "max"){
             this.currentPage = this.userPages.length-1;
             this.updateUserDOM();
@@ -99,32 +100,37 @@ class Users{
             return;
         }
         for(let i=0;i<this.userPages[this.currentPage].length;i++){
-
-
-            // making id/name/email easy/short
+            // making id/name/email/goals/assists easy/short
             let id = this.userPages[this.currentPage][i]["id"];
             let name = this.userPages[this.currentPage][i]["name"];
             let email = this.userPages[this.currentPage][i]["email"];
-
-            // TODO fix shitty broken ass tables
+            let goals = this.userPages[this.currentPage][i]["goals"];
+            let assists = this.userPages[this.currentPage][i]["assists"];
             // CREATE ELEMENT AND ADD INTO ROWS
-            const wrapper = document.createElement('div');
-            const p = document.createElement('p');
-            p.innerHTML += id;
-            p.innerHTML += name;
-            p.innerHTML += email;
-            p.innerHTML += "Edit user";
-            wrapper.classList.add("admin-search-result-row");
-            wrapper.appendChild(p);
-            searchResult.appendChild(wrapper);
-
-
-
+            const tr = document.createElement('tr');
+            let td = [];
+            for(let i=0;i<6;i++){td.push(document.createElement("td"));}
+            // set data
+            td[0].innerHTML = "<p>" + id + "</p>"; // id
+            td[1].innerHTML = "<p>" + name + "</p>"; // username
+            td[2].innerHTML = "<p>" + email + "</p>"; // email
+            td[3].innerHTML = "<p>" + goals + "</p>"; // goals
+            td[4].innerHTML = "<p>" + assists + "</p>"; // assists
+            td[5].innerHTML = "<button type='button' value='" + id + "'>Edit user</button>"; // edit button
+            // append to <tr>
+            for(let i=0;i<6;i++){
+                tr.appendChild(td[i]);
+                td[i].addEventListener("mouseleave", (e)=>{
+                    e.target.firstChild.scrollLeft = 0;
+                });
+            }
+            // append to tbody
+            searchResult.appendChild(tr);
         }
     }
 }
 
-// const users = new Users([],0);
+const users = new Users([],0);
 
 function navigate(ammount){
     users.navigate(ammount);
@@ -135,43 +141,3 @@ postData(searchForm, (e)=>{
     users.updateNewUsers(result)
     users.updateUserDOM();
 });
-
-
-// temp
-// TODO fix shitty broken ass tables
-// setTimeout(function () {
-    
-
-//     searchResult.replaceChildren();
-
-//     const tr = document.createElement('tr');
-
-//     td0 = document.createElement("td");
-//     td1 = document.createElement("td");
-//     td2 = document.createElement("td");
-//     td3 = document.createElement("td");
-//     td4 = document.createElement("td");
-//     td5 = document.createElement("td");
-//     // set data
-//     td0.innerText = "11";
-//     td1.innerText = "Lorem Ipsum";
-//     td2.innerText = "Email@gmail.email";
-//     td3.innerText = "11";
-//     td4.innerText = "420";
-//     td5.innerText = "Edit user";
-//     // append to <tr>
-//     tr.appendChild(td0);
-//     tr.appendChild(td1);
-//     tr.appendChild(td2);
-//     tr.appendChild(td3);
-//     tr.appendChild(td4);
-//     tr.appendChild(td5);
-//     // append to tbody
-//     searchResult.appendChild(tr);
-
-// }, 1000);
-
-
-
-
-// temp

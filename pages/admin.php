@@ -29,11 +29,10 @@
                 <div class="admin-search-result">
 
 
-                    <!-- TODO fix shitty broken ass tables -->
                     <table>
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>Id</th>
                                 <th>Username</th>
                                 <th>E-mail</th>
                                 <th>Goals</th>
@@ -42,7 +41,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <span class="admin-search-result-error-row">No Users Found</span>
+                            <td class="admin-search-result-error-row">No Users Found</td>
                         </tbody>
                     </table>
 
