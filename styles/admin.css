@@ -14,13 +14,14 @@
     width: 100%;
     height: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     font-size: inherit;
 }
 .admin-user-search-wrapper > .admin-search-bar > form > input{
     width: 100%;
+    width: calc(100%/3);
     height: 100%;
     padding: .5rem;
     font-size: inherit;
@@ -97,13 +98,26 @@
 }
 .admin-search-result-page-navigator{
     width: 100%;
+    display: grid;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 1rem;
+    place-items: flex-end;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+}
+.admin-search-result-page-navigator > .right, .admin-search-result-page-navigator > .left{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
-    margin-top: 1rem;
+    width: 100%;
+    height: 100%;
 }
-.admin-search-result-page-navigator > button, .admin-search-result-row-ammount{
+.admin-search-result-page-navigator > .left{
+    justify-content: flex-start;
+}
+.admin-search-result-page-navigator > .right > button, .admin-search-result-row-ammount{
     background-color: var(--accent-color-2);
     color: var(--text-color);
     outline: none;
@@ -112,7 +126,7 @@
     border-radius: .25rem;
     cursor: pointer;
 }
-.admin-search-result-page-navigator > .current-page-number{
+.admin-search-result-page-navigator > .right > .current-page-number{
     width: 3ch;
     height: 100%;
     display: flex;
@@ -120,7 +134,8 @@
     justify-content: center;
     user-select: none;
 }
-.admin-search-result-page-navigator > p{
+.admin-search-result-page-navigator > .right > p,
+.admin-search-result-page-navigator > .left > p{
     width: fit-content;
     height: 100%;
     display: flex;

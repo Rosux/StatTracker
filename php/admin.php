@@ -11,7 +11,9 @@ header('Content-Type: application/json; charset=utf-8');
 
 
 // username search
-$search = $_POST["username"];
+$searchId = $_POST["id"];
+$searchName = $_POST["username"];
+$searchEmail = $_POST["email"];
 
 
 
@@ -25,7 +27,7 @@ $result = $admin->adminGetAllUsers();
 
 
 
-$result = $admin->adminGetAllFilteredUsers('', $search, '');
+$result = $admin->adminGetAllFilteredUsers($searchId, $searchName, $searchEmail);
 
 echo json_encode($result);
 exit();

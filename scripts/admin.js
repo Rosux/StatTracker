@@ -1,16 +1,20 @@
 searchForm = document.querySelector(".admin-search-bar > form");
-searchInput = document.querySelector(".admin-search-bar > form > input");
+searchInput = document.querySelectorAll(".admin-search-bar > form > input");
 searchResult = document.querySelector(".admin-search-result > table > tbody");
+searchResultCount = document.querySelector(".current-search-result-count");
 searchResultPageNumber = document.querySelector(".current-page-number");
 searchResultRowAmmount = document.querySelector(".admin-search-result-row-ammount");
 
-function postData(form, callbackFunction){
+function postData(form, callbackFunction, errorFunction){
     const request = new XMLHttpRequest();
     request.onreadystatechange = function(){
         if(request.readyState == XMLHttpRequest.DONE && this.status == 200){
             callbackFunction(this);
         }else if(request.readyState == XMLHttpRequest.DONE && request.status != 200){
             console.error("Error: response failed");
+            if (typeof errorFunction === "function") { 
+                errorFunction(this);
+            }
             return;
         }
     }
@@ -22,22 +26,25 @@ searchForm.addEventListener('submit', (e) => {
     e.preventDefault();
 });
 
-searchInput.addEventListener("input", (e)=>{
-    postData(searchForm, (e)=>{
-        var result = JSON.parse(e.responseText);
-        if(result == 1){
-            // display no users found
-            users.updateNewUsers([],0);
+searchInput.forEach((item,index)=>{
+    item.addEventListener("input", (e)=>{
+        postData(searchForm, (e)=>{
+            var result = JSON.parse(e.responseText);
+            console.log(result);
+            if(result == 1){
+                // display no users found
+                users.updateNewUsers([],0);
+                users.updateUserDOM();
+                searchResult.replaceChildren();
+                error = document.createElement("div");
+                error.classList.add("admin-search-result-error-row");
+                error.innerText = "No Users Found";
+                searchResult.appendChild(error);
+                return;
+            }
+            users.updateNewUsers(result)
             users.updateUserDOM();
-            searchResult.replaceChildren();
-            error = document.createElement("div");
-            error.classList.add("admin-search-result-error-row");
-            error.innerText = "No Users Found";
-            searchResult.appendChild(error);
-            return;
-        }
-        users.updateNewUsers(result)
-        users.updateUserDOM();
+        });
     });
 });
 
@@ -95,6 +102,7 @@ class Users{
     }
     updateUserDOM(){
         searchResult.replaceChildren();
+        searchResultCount.innerText = `Results: ${this.users.length}`;
         searchResultPageNumber.innerText = this.currentPage+1;
         if(this.userPages[this.currentPage] == undefined){
             return;

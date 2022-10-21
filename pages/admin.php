@@ -22,13 +22,13 @@
         <div class="admin-user-search-wrapper">
             <div class="admin-search-bar shadow-small">
                 <form action="../php/admin.php" method="POST">
+                    <input type="text" name="id" placeholder="Filter For Id" autocomplete="off">
                     <input type="text" name="username" placeholder="Filter For User" autocomplete="off">
+                    <input type="text" name="email" placeholder="Filter For E-mail" autocomplete="off">
                 </form>
             </div>
             <div class="admin-search-result-wrapper">
                 <div class="admin-search-result">
-
-
                     <table>
                         <thead>
                             <tr>
@@ -44,25 +44,27 @@
                             <td class="admin-search-result-error-row">No Users Found</td>
                         </tbody>
                     </table>
-
-
-                    
                 </div>
                 <!-- add page buttons here -->
                 <div class="admin-search-result-page-navigator">
-                    <p style="margin-right: .25rem;">Number Of Rows:</p>
-                    <select class="admin-search-result-row-ammount" style="margin-right: 1rem;">
-                        <option value="10" selected>10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                
-                    <button onclick="navigate('min');" style="margin-right: .25rem;"><<</button>
-                    <button onclick="navigate(-1);"><</button>
-                    <p class="current-page-number">1</p>
-                    <button onclick="navigate(1);" style="margin-right: .25rem;">></button>
-                    <button onclick="navigate('max');">>></button>
+                    <div class="left">
+                        <p class="current-search-result-count">Results: 0</p>
+                    </div>
+                    <div class="right">
+                        <p style="margin-right: .25rem;">Number Of Rows:</p>
+                        <select class="admin-search-result-row-ammount" style="margin-right: 1rem;">
+                            <option value="10" selected>10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        <button onclick="navigate('min');" style="margin-right: .25rem;"><<</button>
+                        <button onclick="navigate(-1);"><</button>
+                        <p class="current-page-number">1</p>
+                        <button onclick="navigate(1);" style="margin-right: .25rem;">></button>
+                        <button onclick="navigate('max');">>></button>
+                    </div>
+                    
                 </div>
             </div>
         </div>
