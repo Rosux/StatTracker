@@ -44,7 +44,7 @@
                 }
             ?>'s stats:</p>
             <div class="stat-wrapper">
-                <div class="stat-card shadow">
+                <div class="stat-card shadow" data-tilt data-tilt-glare data-tilt-max-glare="0.1">
                     <p class="stat-card-counter-text">Goals:</p>
                     <p class="stat-card-counter-number"><?php
                         if(isset($profile)){
@@ -54,7 +54,7 @@
                         }
                     ?></p>
                 </div>
-                <div class="stat-card shadow">
+                <div class="stat-card shadow" data-tilt data-tilt-glare data-tilt-max-glare="0.1">
                     <p class="stat-card-counter-text">Assists:</p>
                     <p class="stat-card-counter-number"><?php
                         if(isset($profile)){

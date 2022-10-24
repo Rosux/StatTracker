@@ -5,11 +5,6 @@ https://www.modernways.be/myap/it/page/programming/php/php%20mvc/PHP%20Routing.h
 TODO
 
 
-temp = get all recent games player played in from user.php
-should return list of game objects
-
-
-teams page to spectate teams and their goals per match etc
 
 
 impement try catch errors instead of integer returns

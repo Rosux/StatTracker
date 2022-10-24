@@ -32,6 +32,7 @@
                     <table>
                         <thead>
                             <tr>
+                                <th></th>
                                 <th>Id</th>
                                 <th>Username</th>
                                 <th>E-mail</th>

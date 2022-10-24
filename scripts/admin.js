@@ -55,7 +55,7 @@ searchResultRowAmmount.addEventListener("change", (e)=>{
 
 
 class Users{
-    constructor(users, splitAmmount){
+    constructor(users=[], splitAmmount=0){
         this.users = users;
         this.userPages = users;
         this.currentPage = 0;
@@ -102,6 +102,11 @@ class Users{
     }
     updateUserDOM(){
         searchResult.replaceChildren();
+        if(this.users.length == 0){
+            searchResultCount.style.color = "hsl(0, 60%, 49%)";
+        }else{
+            searchResultCount.style.color = "";
+        }
         searchResultCount.innerText = `Results: ${this.users.length}`;
         searchResultPageNumber.innerText = this.currentPage+1;
         if(this.userPages[this.currentPage] == undefined){
@@ -117,28 +122,96 @@ class Users{
             // CREATE ELEMENT AND ADD INTO ROWS
             const tr = document.createElement('tr');
             let td = [];
-            for(let i=0;i<6;i++){td.push(document.createElement("td"));}
+            for(let i=0;i<7;i++){td.push(document.createElement("td"));}
             // set data
-            td[0].innerHTML = "<p>" + id + "</p>"; // id
-            td[1].innerHTML = "<p>" + name + "</p>"; // username
-            td[2].innerHTML = "<p>" + email + "</p>"; // email
-            td[3].innerHTML = "<p>" + goals + "</p>"; // goals
-            td[4].innerHTML = "<p>" + assists + "</p>"; // assists
-            td[5].innerHTML = "<button type='button' value='" + id + "'>Edit user</button>"; // edit button
+            if(editUsers.users.includes(id)){
+                tr.classList.add("selected-row");
+                td[0].innerHTML = "<p>" + '<input type="checkbox" id="' + id + '" name="bulkSelectedUsers" checked>' + '<label for="' + id + '"></label>' + "</p>"; // bulk select
+            }else{
+                td[0].innerHTML = "<p>" + '<input type="checkbox" id="' + id + '" name="bulkSelectedUsers">' + '<label for="' + id + '"></label>' + "</p>"; // bulk select
+            }
+            td[1].innerHTML = "<p>" + id + "</p>"; // id
+            td[2].innerHTML = "<p>" + name + "</p>"; // username
+            td[3].innerHTML = "<p>" + email + "</p>"; // email
+            td[4].innerHTML = "<p>" + goals + "</p>"; // goals
+            td[5].innerHTML = "<p>" + assists + "</p>"; // assists
+            td[6].innerHTML = "<button type='button' value='" + id + "'>Edit user</button>"; // edit button
             // append to <tr>
-            for(let i=0;i<6;i++){
+            for(let i=0;i<7;i++){
                 tr.appendChild(td[i]);
                 td[i].addEventListener("mouseleave", (e)=>{
                     e.target.firstChild.scrollLeft = 0;
                 });
             }
+            // make buttons add user id to list
+            td[0].querySelector("p > input").addEventListener("change", (e)=>{
+                const val = e.target.checked;
+                if(val){
+                    e.target.closest("tr").classList.add("selected-row");
+                    // add userid to list
+                    editUsers.addUser(Number(e.target.id));
+                }else{
+                    e.target.closest("tr").classList.remove("selected-row");
+                    // remove userid from list
+                    editUsers.removeUser(Number(e.target.id));
+                }
+                console.log(editUsers.users);
+            })
             // append to tbody
             searchResult.appendChild(tr);
         }
     }
 }
 
-const users = new Users([],0);
+
+
+class EditUsers{
+    constructor(users=[]){
+        // users = list of user id's
+        this.users = users;
+    }
+    addUser(userid){
+        // adds user id to bulk edit list
+        if(typeof userid === "object"){
+            for(let i=0;i<userid.length;i++){
+                this.users.push(userid[i]);
+            }
+        }else{
+            this.users.push(userid);
+        }
+    }
+    removeUser(userid){
+        // remove user from list
+        const index = this.users.indexOf(userid);
+        if(index > -1){
+            this.users.splice(index, 1);
+        }
+    }
+    addTeam(userid, teamid){
+        // add user to team
+    }
+    createRandomTeam(teamid, teamPlayerLimit){
+        // adds randomly selected users to player (goes untill players empty or teams full)
+    }
+    editUser(userid, action, value){
+        // create post request to edit specific user
+    }
+    bulkEditUsers(action, value){
+        // create post request to edit all users
+    }
+    deleteUser(userid){
+        // deletes user in database
+    }
+    openOverlay(){
+        // opens the overlay to edit users / bulk
+    }
+}
+
+
+
+
+const editUsers = new EditUsers();
+const users = new Users();
 
 function navigate(ammount){
     users.navigate(ammount);

@@ -24,11 +24,11 @@
     <div class="center">
         <div class="stat-wrapper">
             <p class="stat-title">Stats:</p>
-            <div class="stat-card shadow">
+            <div class="stat-card shadow" data-tilt data-tilt-glare data-tilt-max-glare="0.1">
                 <p class="stat-card-counter-text">Goals:</p>
                 <p class="stat-card-counter-number"><?php print($user->goals);?></p>
             </div>
-            <div class="stat-card shadow">
+            <div class="stat-card shadow" data-tilt data-tilt-glare data-tilt-max-glare="0.1">
                 <p class="stat-card-counter-text">Assists:</p>
                 <p class="stat-card-counter-number"><?php print($user->assists);?></p>
             </div>

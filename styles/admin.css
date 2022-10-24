@@ -50,6 +50,8 @@
     width: 100%;
     color: hsl(0, 60%, 49%);
 }
+
+
 /* tables */
 .admin-search-result > table{
     width: 100%;
@@ -58,8 +60,40 @@
     border-collapse: collapse;
     table-layout: fixed;
 }
+.admin-search-result > table > thead > tr > th:first-child{
+    width: 4rem;
+}
 .admin-search-result > table > tbody > tr > td{
     padding: .5rem 0;
+}
+.admin-search-result > table > tbody > tr > td:first-child > p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.admin-search-result > table > tbody > tr > td:first-child > p > input{
+    display: none;
+}
+.admin-search-result > table > tbody > tr > td:first-child > p > label{
+    aspect-ratio: 1/1;
+    height: 2rem;
+    border-radius: 100%;
+    position: absolute;
+}
+
+.admin-search-result > table > tbody > tr > td:first-child > p > input + label{
+    background-color: transparent;
+    border: solid 0.2rem var(--text-color);
+    transition: all .6s cubic-bezier(.68,-0.55,.27,1.55);
+}
+.admin-search-result > table > tbody > tr > td:first-child > p > input:checked + label{
+    background-color: #00e0c6;
+    border: solid 0 var(--text-color);
+    transform: rotate3d(0, 1, 0, 180deg);
+}
+.admin-search-result > table > tbody > tr.selected-row{
+    box-shadow: inset 0px 0px 0px 2px rgb(0, 224, 198);
 }
 .admin-search-result > table > tbody > tr > td > button{
     width: fit-content;
