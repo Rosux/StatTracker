@@ -23,7 +23,7 @@
             <div class="admin-search-bar shadow-small">
                 <form action="../php/admin.php" method="POST">
                     <input type="text" name="id" placeholder="Filter For Id" autocomplete="off">
-                    <input type="text" name="username" placeholder="Filter For User" autocomplete="off">
+                    <input type="text" name="username" placeholder="Filter For Username" autocomplete="off">
                     <input type="text" name="email" placeholder="Filter For E-mail" autocomplete="off">
                 </form>
             </div>

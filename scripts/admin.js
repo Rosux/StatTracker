@@ -22,6 +22,23 @@ function postData(form, callbackFunction, errorFunction){
     request.send(new FormData(form));
 }
 
+function getData(url, callbackFunction, errorFunction){
+    const request = new XMLHttpRequest();
+    request.onreadystatechange = function(){
+        if(request.readyState == XMLHttpRequest.DONE && this.status == 200){
+            callbackFunction(this);
+        }else if(request.readyState == XMLHttpRequest.DONE && request.status != 200){
+            console.error("Error: response failed");
+            if (typeof errorFunction === "function") { 
+                errorFunction(this);
+            }
+            return;
+        }
+    }
+    request.open("GET", url, true);
+    request.send();
+}
+
 searchForm.addEventListener('submit', (e) => {
     e.preventDefault();
 });
@@ -30,7 +47,6 @@ searchInput.forEach((item,index)=>{
     item.addEventListener("input", (e)=>{
         postData(searchForm, (e)=>{
             var result = JSON.parse(e.responseText);
-            console.log(result);
             if(result == 1){
                 // display no users found
                 users.updateNewUsers([],0);
@@ -135,7 +151,7 @@ class Users{
             td[3].innerHTML = "<p>" + email + "</p>"; // email
             td[4].innerHTML = "<p>" + goals + "</p>"; // goals
             td[5].innerHTML = "<p>" + assists + "</p>"; // assists
-            td[6].innerHTML = "<button type='button' value='" + id + "'>Edit user</button>"; // edit button
+            td[6].innerHTML = "<button onclick='editUserPage(" + id + ")' type='button'>Edit user</button>"; // edit button
             // append to <tr>
             for(let i=0;i<7;i++){
                 tr.appendChild(td[i]);
@@ -155,7 +171,6 @@ class Users{
                     // remove userid from list
                     editUsers.removeUser(Number(e.target.id));
                 }
-                console.log(editUsers.users);
             })
             // append to tbody
             searchResult.appendChild(tr);
@@ -205,6 +220,9 @@ class EditUsers{
     openOverlay(){
         // opens the overlay to edit users / bulk
     }
+    closeOverlay(){
+        // closes the overlay
+    }
 }
 
 
@@ -222,3 +240,42 @@ postData(searchForm, (e)=>{
     users.updateNewUsers(result)
     users.updateUserDOM();
 });
+
+
+
+
+
+
+
+
+
+
+
+// opens new page popup with user data from id
+function editUserPage(id){
+    getData("../pages/edituseroverlay.php?userid="+id, (e)=>{
+        const overlay = document.createElement("div");
+        overlay.classList.add("overlay-page");
+
+        const closeButtonWrapper = document.createElement("div");
+        const closeButton = document.createElement("div");
+        closeButtonWrapper.classList.add("overlay-close-button-wrapper");
+        closeButton.classList.add("overlay-close-button");
+        closeButton.setAttribute("onclick", "closeOverlay(this);");
+
+        closeButtonWrapper.appendChild(closeButton);
+        overlay.appendChild(closeButtonWrapper);
+        overlay.innerHTML += e.responseText;
+        overlay.style.overflow = "auto";
+        document.body.appendChild(overlay);
+        document.body.style.overflow = "hidden";
+
+
+    }, (e)=>{/* error fuction */});
+}
+
+// closes all overlays
+function closeOverlay(e){
+    document.body.style.overflow = "auto";
+    e.closest(".overlay-page").remove();
+}
