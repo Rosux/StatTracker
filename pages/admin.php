@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="../styles/admin.css">
     <script src="../scripts/main.js"></script>
     <script defer src="../scripts/admin.js"></script>
+    <script defer src="../scripts/update-users.js"></script>
 </head>
 <body>
     <?php require_once("header.php"); ?>

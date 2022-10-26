@@ -32,13 +32,13 @@
     <div class="center" style="min-height: unset; padding: 4rem 0;">
         <p><?php echo($team->name); ?> stats:</p>
         <div class="stat-wrapper">
-            <div class="stat-card shadow">
+            <div class="stat-card shadow" data-tilt data-tilt-glare data-tilt-max-glare="0.1">
                 <p class="stat-card-counter-text">Team Goals:</p>
                 <p class="stat-card-counter-number"><?php
                     echo $team->goals
                 ?></p>
             </div>
-            <div class="stat-card shadow">
+            <div class="stat-card shadow" data-tilt data-tilt-glare data-tilt-max-glare="0.1">
                 <p class="stat-card-counter-text">Team Assists:</p>
                 <p class="stat-card-counter-number"><?php
                     echo $team->assists

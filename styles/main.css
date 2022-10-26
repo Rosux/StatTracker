@@ -211,6 +211,7 @@ a{
     width: 100%;
     min-height: 100vh;
     background-color: hsla(0, 0%, 9%, 0.8);
+    backdrop-filter: blur(1px);
     position: fixed;
     top: 0;
     left: 0;

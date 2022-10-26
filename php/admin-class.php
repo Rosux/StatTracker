@@ -53,7 +53,7 @@ class Admin extends User{
             return 1;
         }
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $data;
+        return $data[0];
     }
 
     public function adminSetUserGoals($userId, $amount){
