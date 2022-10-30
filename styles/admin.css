@@ -109,6 +109,7 @@
 .admin-search-result > table > tbody > tr > td > p{
     overflow: hidden;
     text-overflow: ellipsis;
+    padding-left: 1ch;
 }
 .admin-search-result > table > thead, .admin-search-result > table > tbody > tr:nth-child(even){background-color: var(--accent-color-2);}
 .admin-search-result > table > tbody > tr:nth-child(odd){background-color: var(--accent-color-1);}

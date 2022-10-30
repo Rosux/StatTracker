@@ -14,6 +14,7 @@
     <link rel="icon" type="image/png" href="../images/ico.png"/>
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="../styles/admin.css">
+    <link rel="stylesheet" href="../styles/overlay.css">
     <script src="../scripts/main.js"></script>
     <script defer src="../scripts/admin.js"></script>
     <script defer src="../scripts/update-users.js"></script>
@@ -44,11 +45,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <td class="admin-search-result-error-row">No Users Found</td>
+                            <td class="admin-search-result-error-row">
+                                <tr class="admin-search-result-error-row"><td colspan="7"><p>No Users Found</p></td></tr>
+                            </td>
                         </tbody>
                     </table>
                 </div>
-                <!-- add page buttons here -->
+                <!-- page buttons -->
                 <div class="admin-search-result-page-navigator">
                     <div class="left">
                         <p class="current-search-result-count">Results: 0</p>

@@ -90,7 +90,7 @@ class Admin extends User{
         // 1 = couldnt update row
         // 2 = incorrect admin rights
         // 3 = data the same
-        if($this->admin < 3 || $this->adminGetUser($userId)["admin"] > $this->admin){
+        if($this->admin < 3 || $this->adminGetUser($userId)["admin"] > $this->admin || ($newData["admin"] == 3 && $this->admin < 4) || ($newData["admin"] == 4 && $this->admin < 4)){
             return 2;
         }
         $stmt = $this->conn->prepare("UPDATE users SET name=?, email=?, goals=?, assists=?, admin=? WHERE id=?");

@@ -176,6 +176,7 @@ a{
     border: solid 1px var(--text-color);
     border-radius: 10em;
     position: relative;
+    min-width: max-content;
 }
 .button-switch > label::after{
     display: block;

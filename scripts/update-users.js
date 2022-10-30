@@ -17,6 +17,16 @@ function postForm(e){
     // post form + submitter included
     postData(form, (e)=>{
         var result = JSON.parse(e.responseText);
+        console.log(result);
+        if(result.newUserData !== undefined){
+            // update user row
+            users.updateUserData(result.newUserData);
+        }
+        if(result.postMethod === "delete" && result.error === false){
+            users.removeUser(parseInt(result.UUID));
+            // close overlay
+            closeOverlay(document.querySelector(".overlay-page"));
+        }
         // remove previous popups
         const pOverlay = document.querySelectorAll(".update-text-overlay");
         for(let i=0;i<pOverlay.length;i++){
@@ -62,11 +72,12 @@ function postForm(e){
         p.classList.add("update-text-overlay");
         p.classList.add("overlay-error");
         document.body.appendChild(p);
+        p.fadein();
         setTimeout(()=>{
             p.classList.add("move-up");
             setTimeout(()=>{
                 p.remove();
             }, 1000);
-        }, 4000); 
+        }, 3000); 
     });
 }

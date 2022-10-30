@@ -130,6 +130,7 @@ if($response["updateStatus"] == ""){
 $response["newUserData"] = $admin->adminGetUser($idData);
 if($response["newUserData"] == 1){
     unset($response["newUserData"]);
+    $response["UUID"] = $idData;
 }
 echo json_encode($response);
 exit();

@@ -87,6 +87,28 @@ class Users{
             this.splitUsers();
         }
     }
+    updateUserData(userData){
+        for(let i=0;i<this.users.length;i++){
+            if(this.users[i].id == userData.id){
+                this.users[i].name = userData.name;
+                this.users[i].email = userData.email;
+                this.users[i].goals = userData.goals;
+                this.users[i].assists = userData.assists;
+                this.updateUserDOM();
+            }
+        }
+    }
+    removeUser(userId){
+        for(let i=0;i<this.users.length;i++){
+            if(this.users[i].id == userId){this.users.splice(i, 1);}
+        }
+        this.editUsers.removeUser(Number(userId));
+        this.userPages = this.users;
+        const page = this.currentPage;
+        this.splitUsers(Number(searchResultRowAmmount.value));
+        this.navigate(page);
+
+    }
     updateNewUsers(users, splitAmmount){
         this.users = users;
         this.userPages = users;

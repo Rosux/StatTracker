@@ -22,7 +22,7 @@ ADMIN ROLES
 0 = nothing
 1 = can make teams and add points to teams
 2 = can add points to players
-3 = can remove accounts, update accounts and make more admins
+3 = can remove accounts, update accounts
 4 = can give/remove admin rights
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 

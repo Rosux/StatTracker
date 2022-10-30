@@ -6,7 +6,6 @@
         $user = $admin->adminGetUser($_GET["userid"]);
     }  
 ?>
-<link rel="stylesheet" href="../styles/overlay.css">
 <div class="center">
     <form action="../php/edit-users.php" method="POST" class="shadow user-overlay-wrapper" onsubmit="postForm(event);">
         <p class="form-title"><?php echo $user["name"]; ?>'s Settings:</p>
@@ -30,11 +29,11 @@
             <p class="title">Current Admin role: <span><?php echo $user["admin"]; ?></span></p>
             <a href="../pages/admin-roles.php">Read more over admin roles here</a>
             <select name="admin">
-                <option value="0" selected="selected">No Admin Rights</option>
-                <option value="1">Manage Teams</option>
-                <option value="2">Manage Player Points/Teams</option>
-                <option value="3">Manage Players/Teams/Points</option>
-                <option value="4">Manage Players/teams/Admin rights</option>
+                <option value="0"<?php if($user["admin"] == 0){echo(' selected="selected"');} ?>>No Admin Rights</option>
+                <option value="1"<?php if($user["admin"] == 1){echo(' selected="selected"');} ?>>Manage Teams</option>
+                <option value="2"<?php if($user["admin"] == 2){echo(' selected="selected"');} ?>>Manage Player Points/Teams</option>
+                <option value="3"<?php if($user["admin"] == 3){echo(' selected="selected"');} ?>>Manage Players/Teams/Points</option>
+                <option value="4"<?php if($user["admin"] == 4){echo(' selected="selected"');} ?>>Manage Players/teams/Admin rights</option>
             </select>
         </div>
         <div class="form-full-width">
