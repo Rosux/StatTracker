@@ -1,7 +1,8 @@
 <?php
-    require_once "../php/user.php";
-    $user = new User();
-    $user->protectPage();
+    require_once "../php/admin-class.php";
+    $admin = new Admin();
+    $admin->protectPage();
+    $user = $admin;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -66,7 +67,6 @@
                         <button onclick="navigate(1);" style="margin-right: .25rem;">></button>
                         <button onclick="navigate('max');">>></button>
                     </div>
-                    
                 </div>
             </div>
         </div>

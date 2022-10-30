@@ -50,12 +50,17 @@ searchInput.forEach((item,index)=>{
             if(result == 1){
                 // display no users found
                 users.updateNewUsers([],0);
-                users.updateUserDOM();
+                // users.updateUserDOM(); <-- dont think its needed if(bug){enable.this}
                 searchResult.replaceChildren();
-                error = document.createElement("div");
-                error.classList.add("admin-search-result-error-row");
-                error.innerText = "No Users Found";
-                searchResult.appendChild(error);
+                tr = document.createElement("tr");
+                td = document.createElement("td");
+                td.setAttribute("colspan", "7");
+                p = document.createElement("p");
+                p.innerText = "No Users Found";
+                tr.classList.add("admin-search-result-error-row");
+                td.appendChild(p);
+                tr.appendChild(td);
+                searchResult.appendChild(tr);
                 return;
             }
             users.updateNewUsers(result)
@@ -75,6 +80,7 @@ class Users{
         this.users = users;
         this.userPages = users;
         this.currentPage = 0;
+        this.editUsers = new EditUsers(users);
         if(splitAmmount != undefined){
             this.splitUsers(splitAmmount);
         }else{
@@ -140,7 +146,7 @@ class Users{
             let td = [];
             for(let i=0;i<7;i++){td.push(document.createElement("td"));}
             // set data
-            if(editUsers.users.includes(id)){
+            if(this.editUsers.users.includes(id)){
                 tr.classList.add("selected-row");
                 td[0].innerHTML = "<p>" + '<input type="checkbox" id="' + id + '" name="bulkSelectedUsers" checked>' + '<label for="' + id + '"></label>' + "</p>"; // bulk select
             }else{
@@ -165,11 +171,11 @@ class Users{
                 if(val){
                     e.target.closest("tr").classList.add("selected-row");
                     // add userid to list
-                    editUsers.addUser(Number(e.target.id));
+                    this.editUsers.addUser(Number(e.target.id));
                 }else{
                     e.target.closest("tr").classList.remove("selected-row");
                     // remove userid from list
-                    editUsers.removeUser(Number(e.target.id));
+                    this.editUsers.removeUser(Number(e.target.id));
                 }
             })
             // append to tbody
@@ -179,7 +185,7 @@ class Users{
 }
 
 
-
+// for bulk editing
 class EditUsers{
     constructor(users=[]){
         // users = list of user id's
@@ -208,14 +214,8 @@ class EditUsers{
     createRandomTeam(teamid, teamPlayerLimit){
         // adds randomly selected users to player (goes untill players empty or teams full)
     }
-    editUser(userid, action, value){
-        // create post request to edit specific user
-    }
     bulkEditUsers(action, value){
         // create post request to edit all users
-    }
-    deleteUser(userid){
-        // deletes user in database
     }
     openOverlay(){
         // opens the overlay to edit users / bulk
@@ -225,10 +225,6 @@ class EditUsers{
     }
 }
 
-
-
-
-const editUsers = new EditUsers();
 const users = new Users();
 
 function navigate(ammount){

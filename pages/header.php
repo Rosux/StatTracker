@@ -9,8 +9,11 @@
         </a>
         <a href="home.php">Home</a>
         <?php
-            if($user->admin == 1){
+            if($user->admin > 1){
                 echo '<a href="admin.php">Admin-Panel</a>';
+            }
+            if($user->admin > 0){
+                echo '<a href="admin-teams.php">Teams-Panel</a>';
             }
             if(isset($user) && $user->checkLoggedIn() == 0){
                 echo '

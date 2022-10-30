@@ -49,10 +49,16 @@
     color: var(--text-color);
     font-size: 1em;
 }
+.user-overlay-wrapper-card > a{
+    color: var(--text-color);
+    font-size: 1em;
+    margin-bottom: 1rem;
+}
 .user-overlay-wrapper-card > .title > span{
     font-weight: 600;
     font-size: 1.2em;
 }
+.user-overlay-wrapper-card > select,
 .user-overlay-wrapper-card > input{
     background-color: var(--accent-color-2);
     border: none;
@@ -62,6 +68,28 @@
     outline: none;
     font-size: 1.5em;
 }
+.user-overlay-wrapper-card > select{
+    width: max-content;
+}
 .delete-button{
     background-color: hsl(0, 60%, 49%) !important;
+}
+.update-text-overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    text-align: center;
+    background-color: var(--text-color);
+    color: var(--accent-color-1);
+    padding: .5rem 15vw;
+    transition: all .7s ease-in-out;
+}
+.move-up{
+    top: -100%;
+    transition: all .7s ease-in-out !important;
+}
+.overlay-error{
+    background-color: hsl(0, 60%, 49%);
 }

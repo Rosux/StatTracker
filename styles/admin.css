@@ -42,12 +42,6 @@
     font-size: 1.2rem;
 }
 .admin-search-result-error-row{
-    padding: .5rem 0;
-    font-size: inherit;
-}
-.admin-search-result-error-row{
-    text-align: center;
-    width: 100%;
     color: hsl(0, 60%, 49%);
 }
 

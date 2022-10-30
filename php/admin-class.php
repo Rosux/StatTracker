@@ -47,7 +47,7 @@ class Admin extends User{
     }
 
     public function adminGetUser($userId){
-        $stmt = $this->conn->prepare("SELECT * FROM users WHERE id=?");
+        $stmt = $this->conn->prepare("SELECT id,name,email,goals,assists,admin FROM users WHERE id=?");
         $stmt->execute([$userId]);
         if($stmt->rowCount() == 0){
             return 1;
@@ -84,13 +84,59 @@ class Admin extends User{
         return 0;
     }
 
+    public function adminUpdateUser($userId, $newData){
+        // error codes:
+        // 0 = success
+        // 1 = couldnt update row
+        // 2 = incorrect admin rights
+        // 3 = data the same
+        if($this->admin < 3 || $this->adminGetUser($userId)["admin"] > $this->admin){
+            return 2;
+        }
+        $stmt = $this->conn->prepare("UPDATE users SET name=?, email=?, goals=?, assists=?, admin=? WHERE id=?");
+        $stmt->execute([
+            $newData["name"],
+            $newData["email"],
+            $newData["goals"],
+            $newData["assists"],
+            $newData["admin"],
+            $userId
+        ]);
+        if($stmt->rowCount() == 0){
+            if(!$stmt){
+                return 1;
+            }
+            return 3;
+        }
+        return 0;
+    }
+    
     public function adminDeleteUser($userId){
-
+        // error codes:
+        // 0 = success
+        // 1 = couldnt delete row
+        // 2 = incorrect admin rights
+        if($this->admin < 3 || $this->adminGetUser($userId)["admin"] >= $this->admin){
+            return 2;
+        }
+        $stmt = $this->conn->prepare("DELETE FROM users WHERE id=?");
+        $stmt->execute([$userId]);
+        if($stmt->rowCount() == 0){
+            return 1;
+        }
+        return 0;
     }
 
     public function adminUpdateUserStats(){
         // updates user stats based on all the games might take a bit of time
     }
     
+    public function protectPage(){
+        if($this->checkLoggedIn() != 0){
+            $this->logout();
+            header("Location: " . "../pages/login.php");
+            exit();
+        }
+    }
 }
 ?>
