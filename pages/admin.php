@@ -72,6 +72,7 @@
                     </div>
                 </div>
             </div>
+            <button class="bulkUserButton" style="background-color:hsl(109.6, 60%, 49%) !important;font-size:inherit;" onclick="users.editUsers.openOverlay();">BULK EDIT</button>
         </div>
     </div>
     <?php require_once("footer.php"); ?>

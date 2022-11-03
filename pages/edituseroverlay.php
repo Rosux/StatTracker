@@ -4,8 +4,51 @@
     $admin->protectPage();
     if(isset($_GET["userid"])){
         $user = $admin->adminGetUser($_GET["userid"]);
-    }  
+    }
 ?>
+<?php
+if(!isset($_GET["userid"])) : ?>
+<?php
+    if(isset($_POST["bulkUserIds"])) :
+    $data = json_decode($_POST["bulkUserIds"])
+?>
+<div class="center">
+    <form action="../php/edit-users.php" method="POST" class="shadow user-overlay-wrapper" onsubmit="postForm(event);">
+        <p class="form-title">Bulk Delete:</p>
+        <table class="bulk-edit-table">
+            <thead>
+                <tr>
+                    <th>Remove</th>
+                    <th>Id</th>
+                    <th>Username</th>
+                    <th>E-mail</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                for($i=0;$i<count($data);$i++){
+                    $userData = $admin->adminGetUser($data[$i]);
+                    echo('<tr>');
+                    echo('<td><p><button type="button" onclick="users.editUsers.removeUser(' . $userData["id"] . ', this);"></button></p></td>');
+                    echo('<td><p>' . $userData["id"] . '</p></td>');
+                    echo('<td><p>' . $userData["name"] . '</p></td>');
+                    echo('<td><p>' . $userData["email"] . '</td>');
+                    echo('<input type="hidden" name="id[]" value=' . $userData["id"] . '>');
+                    echo('</tr>');
+                }
+                ?>
+            </tbody>
+        </table>
+        <div class="form-full-width">
+            <input type="password" name="adminPass" placeholder="Current Admin Password" autocomplete="off">
+        </div>
+        <div class="form-full-width">
+            <input type="submit" value="Delete User" class="delete-button" name="delete">
+        </div>
+    </form>
+</div>
+<?php endif; ?>
+<?php else : ?>
 <div class="center">
     <form action="../php/edit-users.php" method="POST" class="shadow user-overlay-wrapper" onsubmit="postForm(event);">
         <p class="form-title"><?php echo $user["name"]; ?>'s Settings:</p>
@@ -37,9 +80,12 @@
             </select>
         </div>
         <div class="form-full-width">
-            <input type="submit" value="Delete User" class="delete-button" name="delete">
+            <input type="password" name="adminPass" placeholder="Current Admin Password" autocomplete="off">
+        </div>
+        <div class="form-full-width">
             <input type="submit" value="Update User" name="update">
         </div>
         <input type="hidden" name="id" value="<?php echo $user["id"]; ?>">
     </form>
 </div>
+<?php endif; ?>

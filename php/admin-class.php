@@ -8,11 +8,29 @@ class Admin extends User{
         // call parent constructor
         parent::__construct();
         // new constructor functions stuff
-        // echo $this->name;
         if($this->admin == 0){
             header("Location: " . "../pages/home.php");
             exit();
         }
+    }
+
+    public function adminComparePass($password){
+        // error codes:
+        // 0 = success
+        // 1 = error
+        // 2 = false password
+        $stmt = $this->conn->prepare("SELECT * FROM users WHERE email=? LIMIT 1");
+        $stmt->execute([
+            $this->email
+        ]);
+        if($stmt->rowCount() == 0){
+            return 1;
+        }
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if(!password_verify($password, $data[0]["password"])){
+            return 2;
+        }
+        return 0;
     }
 
     public function adminGetAllUsers(){
@@ -107,6 +125,40 @@ class Admin extends User{
                 return 1;
             }
             return 3;
+        }
+        return 0;
+    }
+
+    public function adminBulkDeleteUser($userIds){
+        // error codes:
+        // 0 = success
+        // array = couldnt delete rows
+        // 2 = incorrect admin rights
+        // DELETE FROM users WHERE id IN (91, 90)
+
+        if($this->admin < 3){
+            return 2;
+        }
+        $stmt = $this->conn->prepare("DELETE FROM users WHERE id=?");
+
+        $errorIds = [];
+        for($i=0;$i<count($userIds);$i++){
+            if($userIds[$i] == ""){
+                continue;
+            }
+            if($this->adminGetUser($userIds[$i]) == 1){
+                continue;
+            }elseif($this->adminGetUser($userIds[$i])["admin"] >= $this->admin){
+                array_push($errorIds,$userIds[$i]);
+            }else{
+                $stmt->execute([$userIds[$i]]);
+                if($stmt->rowCount() == 0){
+                    array_push($errorIds,$userIds[$i]);
+                }
+            } 
+        }
+        if(isset($errorIds[0])){
+            return $errorIds;
         }
         return 0;
     }

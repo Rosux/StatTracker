@@ -5,11 +5,6 @@ https://www.modernways.be/myap/it/page/programming/php/php%20mvc/PHP%20Routing.h
 TODO
 
 
-
-
-impement try catch errors instead of integer returns
-
-
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   UPDATE THE USER GOALS/ASSISTS WHEN CHANGING TEAM SCORE ETC
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -25,12 +20,6 @@ ADMIN ROLES
 3 = can remove accounts, update accounts
 4 = can give/remove admin rights
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-  
-
-
-at player rows select users by clicking on row and saving the userid in a array (js)
-to ajax POST to php 
 
 
 
@@ -52,8 +41,6 @@ final:
 TODO for now quickly:
 
 1:  bulk edit users
-    still have to create a list system to show those users (probably just a big green edit button)
-    make php script that loops over the users and does the changes
 
 2:  make team creator
     inputs (name, players, goals, assists)
@@ -64,3 +51,17 @@ TODO for now quickly:
 4:  create random teams
 
 5:  create admin role explenation
+
+6:  make popup before deleting user requiring admin password (ez post with form and validate in script)
+
+
+green button at the bottom of user list (or on right side)
+
+bulk edit features:
+1: delete users
+2: add users to team
+3: create random teams with those users
+
+
+
+https://github.com/phprouter/main/blob/main/routes.php

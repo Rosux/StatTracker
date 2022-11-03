@@ -23,7 +23,7 @@
     align-items: center;
     justify-content: space-evenly;
 }
-.form-full-width > input{
+.form-full-width > input[type="submit"]{
     border: none;
     outline: none;
     background-color: var(--accent-color-2);
@@ -59,7 +59,8 @@
     font-size: 1.2em;
 }
 .user-overlay-wrapper-card > select,
-.user-overlay-wrapper-card > input{
+.user-overlay-wrapper-card > input,
+.form-full-width > input[type="password"]{
     background-color: var(--accent-color-2);
     border: none;
     padding: .25rem .5rem;
@@ -67,6 +68,10 @@
     color: var(--text-color);
     outline: none;
     font-size: 1.5em;
+}
+.form-full-width > input[type="password"]{
+    width: 50%;
+    min-width: 21ch;
 }
 .user-overlay-wrapper-card > select{
     width: max-content;
@@ -92,4 +97,88 @@
 }
 .overlay-error{
     background-color: hsl(0, 60%, 49%);
+}
+/* BULK EDIT */
+.bulk-edit-table{
+    width: 66%;
+    overflow-x: auto;
+    font-size: 1.2rem;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+.bulk-edit-table > tbody > tr > td,
+.bulk-edit-table > thead > tr > th{
+    text-align: left;
+    padding: .5rem 0;
+}
+.bulk-edit-table > thead > tr > th:first-child,
+.bulk-edit-table > tbody > tr > td:first-child{
+    width: min-content;
+    padding-right: 1ch;
+}
+.bulk-edit-table > thead > tr > th:last-child,
+.bulk-edit-table > tbody > tr > td:last-child{
+    padding-left: 1ch;
+}
+.bulk-edit-table > thead > tr > th:not(:last-child):not(:first-child),
+.bulk-edit-table > tbody > tr > td:not(:last-child):not(:first-child){
+    padding-left: 1ch;
+    padding-right: 1ch;
+}
+.bulk-edit-table > tbody > tr > td > p:hover {
+    overflow-x: auto;
+}
+.bulk-edit-table > tbody > tr > td > p{
+    overflow: hidden;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+}
+.bulk-edit-table > thead,
+.bulk-edit-table > tbody > tr:nth-child(2n){
+    background-color: var(--accent-color-2);
+}
+.bulk-edit-table > tbody > tr:nth-child(2n+1){
+    background-color: var(--accent-color-1);
+}
+.bulk-edit-table > tbody > tr,
+.bulk-edit-table > tbody > tr > td{
+    height: 100%;
+}
+.bulk-edit-table > tbody > tr > td:first-child > p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.bulk-edit-table > tbody > tr > td:first-child > p > button{
+    aspect-ratio: 1/1;
+    height: 100%;
+    border-radius: 100%;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    /* border: solid 0.2rem var(--text-color); */
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.bulk-edit-table > tbody > tr > td:first-child > p > button::before,
+.bulk-edit-table > tbody > tr > td:first-child > p > button::after{
+    content: "";
+    display: block;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 15%;
+    background-color: var(--text-color);;
+    transition: all .2s ease-in-out;
+    border-radius: 100rem;
+}
+.bulk-edit-table > tbody > tr > td:first-child > p > button::before{transform: rotate(-45deg);}
+.bulk-edit-table > tbody > tr > td:first-child > p > button::after{transform: rotate(45deg);}
+.bulk-edit-table > tbody > tr > td:first-child > p > button:hover::before,
+.bulk-edit-table > tbody > tr > td:first-child > p > button:hover::after{
+    background-color: red;
 }

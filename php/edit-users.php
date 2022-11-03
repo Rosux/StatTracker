@@ -1,12 +1,34 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
 
-$idData = $_POST["id"];
-$nameData = $_POST["username"];
-$emailData = $_POST["email"];
-$goalsData = $_POST["goals"];
-$assistsData = $_POST["assists"];
-$adminData = $_POST["admin"];
+
+
+
+if(isset($_POST["id"])){
+    $idData = $_POST["id"];
+}
+if(isset($_POST["username"])){
+    $nameData = $_POST["username"];
+}
+if(isset($_POST["email"])){
+    $emailData = $_POST["email"];
+}
+if(isset($_POST["goals"])){
+    $goalsData = $_POST["goals"];
+}
+if(isset($_POST["assists"])){
+    $assistsData = $_POST["assists"];
+}
+if(isset($_POST["admin"])){
+    $adminData = $_POST["admin"];
+}
+
+
+
+
+// isset($varname)
+
+
 
 require_once "../php/admin-class.php";
 $admin = new Admin();
@@ -16,11 +38,18 @@ $response = [
     "updateStatus" => "",
     "error" => false
 ];
-$userData = $admin->adminGetUser($idData);
 if(isset($_POST["update"])){
     $response["postMethod"] = "update";
     // update user
     // create original data and update each value
+    if(!isset($idData)){
+        $response["postMethod"] = "update";
+        $response["updateStatus"] .= "No users selected.<br>";
+        $response["error"] = true;
+        echo json_encode($response);
+        exit();
+    }
+    $userData = $admin->adminGetUser($idData);
     $updateData = [
         "name" => $userData["name"],
         "email" => $userData["email"],
@@ -29,7 +58,7 @@ if(isset($_POST["update"])){
         "admin" => $userData["admin"]
     ];
     // check if data isset and change the updatedData
-    if($goalsData != ""){
+    if(isset($goalsData) && $goalsData != ""){
         $y = false;
         if($goalsData < 0){
             $response["updateStatus"] .= "Goals cant be negative<br>";
@@ -45,7 +74,7 @@ if(isset($_POST["update"])){
             $updateData["goals"] = $goalsData;
         }
     }
-    if($assistsData != ""){
+    if(isset($assistsData) && $assistsData != ""){
         $y = false;
         if($assistsData < 0){
             $response["updateStatus"] .= "Assists cant be negative<br>";
@@ -61,10 +90,10 @@ if(isset($_POST["update"])){
             $updateData["assists"] = $assistsData;
         }
     }
-    if($adminData != ""){
+    if(isset($adminData) && $adminData != ""){
         $updateData["admin"] = $adminData;
     }
-    if($nameData != ""){
+    if(isset($nameData) && $nameData != ""){
         $x = false;
         if(strlen($nameData)>30 || strlen($nameData)<4){
             $response["updateStatus"] .= "Username must be between 4-30 characters<br>";
@@ -80,7 +109,7 @@ if(isset($_POST["update"])){
             $updateData["name"] = $nameData;
         }
     }
-    if($emailData != ""){
+    if(isset($emailData) && $emailData != ""){
         if(!filter_var($emailData, FILTER_VALIDATE_EMAIL)){
             $response["updateStatus"] .= "Email is not valid<br>";
             $response["error"] = true;
@@ -88,41 +117,74 @@ if(isset($_POST["update"])){
             $updateData["email"] = $emailData;
         }
     }
-    $result = $admin->adminUpdateUser($idData, $updateData);
-    if($result == 2){
-        // not enough admin rights
-        $response["updateStatus"] .= "Incorrect Admin Rights.<br>";
-        $response["error"] = true;
-    }elseif($result == 0){
-        // user is updated
-        $response["updateStatus"] .= "Success, User Updated.<br>";
-    }elseif($result == 1){
-        // query failed
-        $response["updateStatus"] .= "Failed, Something went wrong try again later.<br>";
-        $response["error"] = true;
-    }elseif($result == 3){
-        // user is updated but the same as before
-        $response["updateStatus"] .= "No changes made.<br>";
+    if(isset($idData)){
+        $result = $admin->adminUpdateUser($idData, $updateData);
+        if($result == 2){
+            // not enough admin rights
+            $response["updateStatus"] .= "Incorrect Admin Rights.<br>";
+            $response["error"] = true;
+        }elseif($result == 0){
+            // user is updated
+            $response["updateStatus"] .= "Success, User Updated.<br>";
+        }elseif($result == 1){
+            // query failed
+            $response["updateStatus"] .= "Failed, Something went wrong try again later.<br>";
+            $response["error"] = true;
+        }elseif($result == 3){
+            // user is updated but the same as before
+            $response["updateStatus"] .= "No changes made.<br>";
+        }
     }
+    
 }elseif(isset($_POST["delete"])){
-    $response["postMethod"] = "delete";
-    // delete user
-    $result = $admin->adminDeleteUser($idData);
-    if($result == 2){
-        // not enough admin rights
-        $response["updateStatus"] .= "Incorrect Admin Rights.<br>";
+    // bulk delete
+    if(!isset($_POST["adminPass"])){
+        $response["postMethod"] = "delete";
+        $response["updateStatus"] .= "Admin password not set.<br>";
         $response["error"] = true;
-    }elseif($result == 0){
-        // user is deleted
-        $response["updateStatus"] .= "Success, User Deleted.<br>";
-    }elseif($result == 1){
-        // query failed
-        $response["updateStatus"] .= "Failed, Something went wrong try again later.<br>";
-        $response["error"] = true;
+        echo json_encode($response);
+        exit();
+    }else{
+        $result = $admin->adminComparePass($_POST["adminPass"]);
+        if($result == 1){
+            $response["postMethod"] = "delete";
+            $response["updateStatus"] .= "Failed, Something went wrong try again later.<br>";
+            $response["error"] = true;
+            echo json_encode($response);
+            exit();
+        }elseif($result == 2){
+            $response["postMethod"] = "delete";
+            $response["updateStatus"] .= "Wrong admin password.<br>";
+            $response["error"] = true;
+            echo json_encode($response);
+            exit();
+        }elseif($result == 0){
+            $response["postMethod"] = "delete";
+            // delete user
+            if(isset($idData)){
+                $result = $admin->adminBulkDeleteUser($idData);
+                if($result == 2){
+                    // not enough admin rights
+                    $response["updateStatus"] .= "Incorrect Admin Rights.<br>";
+                    $response["error"] = true;
+                    echo json_encode($response);
+                    exit();
+                }elseif($result == 0){
+                    // user is deleted
+                    $response["updateStatus"] .= "Success, User Deleted.<br>";
+                    echo json_encode($response);
+                    exit();
+                }elseif(is_array($result)){
+                    // query failed
+                    $response["undeletedUsers"] = $result;
+                    $response["updateStatus"] .= "Couldn't delete all users.<br>";
+                    $response["error"] = true;
+                    echo json_encode($response);
+                    exit();
+                }
+            }
+        }
     }
-}
-if($response["updateStatus"] == ""){
-    unset($response["updateStatus"]);
 }
 if($response["updateStatus"] == ""){
     unset($response["updateStatus"]);

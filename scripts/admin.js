@@ -1,9 +1,10 @@
-searchForm = document.querySelector(".admin-search-bar > form");
-searchInput = document.querySelectorAll(".admin-search-bar > form > input");
-searchResult = document.querySelector(".admin-search-result > table > tbody");
-searchResultCount = document.querySelector(".current-search-result-count");
-searchResultPageNumber = document.querySelector(".current-page-number");
-searchResultRowAmmount = document.querySelector(".admin-search-result-row-ammount");
+const searchForm = document.querySelector(".admin-search-bar > form");
+const searchInput = document.querySelectorAll(".admin-search-bar > form > input");
+const searchResult = document.querySelector(".admin-search-result > table > tbody");
+const searchResultCount = document.querySelector(".current-search-result-count");
+const searchResultPageNumber = document.querySelector(".current-page-number");
+const searchResultRowAmmount = document.querySelector(".admin-search-result-row-ammount");
+const bulkEditButton = document.querySelector(".bulkUserButton");
 
 function postData(form, callbackFunction, errorFunction){
     const request = new XMLHttpRequest();
@@ -107,7 +108,8 @@ class Users{
         const page = this.currentPage;
         this.splitUsers(Number(searchResultRowAmmount.value));
         this.navigate(page);
-
+        console.log("ye update dom here bitch", this.users);
+        // this.updateUserDOM();
     }
     updateNewUsers(users, splitAmmount){
         this.users = users;
@@ -199,6 +201,11 @@ class Users{
                     // remove userid from list
                     this.editUsers.removeUser(Number(e.target.id));
                 }
+                if(this.editUsers.users.length > 0){
+                    bulkEditButton.show();
+                }else{
+                    bulkEditButton.hide();
+                }
             })
             // append to tbody
             searchResult.appendChild(tr);
@@ -223,31 +230,82 @@ class EditUsers{
             this.users.push(userid);
         }
     }
-    removeUser(userid){
+    clearUsers(){
+        for(let i=0;i<this.users.length;i++){
+            users.removeUser(this.users[i]);
+        }
+        bulkEditButton.hide();
+        users.updateUserDOM();
+    }
+    removeUser(userid, e){
         // remove user from list
         const index = this.users.indexOf(userid);
         if(index > -1){
             this.users.splice(index, 1);
+        }
+        if(this.users.length > 0){
+            bulkEditButton.show();
+        }else{
+            bulkEditButton.hide();
+            if(e !== undefined){
+                closeOverlay(e);
+            }
+        }
+        // IMPORTANT
+        // if overlay is on remove it from the table
+        // ALSO UPDATE HTML
+        if(e !== undefined){
+            e.closest("tr").remove();
         }
     }
     addTeam(userid, teamid){
         // add user to team
     }
     createRandomTeam(teamid, teamPlayerLimit){
-        // adds randomly selected users to player (goes untill players empty or teams full)
+        // adds randomly selected users to teams (goes untill players empty or teams full)
     }
     bulkEditUsers(action, value){
         // create post request to edit all users
     }
     openOverlay(){
         // opens the overlay to edit users / bulk
-    }
-    closeOverlay(){
-        // closes the overlay
+        let data = new FormData();
+        data.append("bulkUserIds", JSON.stringify(this.users));
+        // JSON.parse(data.get("bulkUserIds")); // <------- these are the id's being sent
+        // create form
+        const form = document.createElement("form");
+        form.action = "../pages/edituseroverlay.php"; // <---------- URL OF PAGE
+        form.method = "POST";
+        // foreach data add it to new form element
+        for(const val of data.entries()){
+            let i = document.createElement("input");
+            i.name = val[0];
+            i.value = val[1];
+            form.appendChild(i);
+        }
+        postData(form, (e)=>{
+            const overlay = document.createElement("div");
+            overlay.classList.add("overlay-page");
+
+            const closeButtonWrapper = document.createElement("div");
+            const closeButton = document.createElement("div");
+            closeButtonWrapper.classList.add("overlay-close-button-wrapper");
+            closeButton.classList.add("overlay-close-button");
+            closeButton.setAttribute("onclick", "closeOverlay(this);");
+
+            closeButtonWrapper.appendChild(closeButton);
+            overlay.appendChild(closeButtonWrapper);
+            overlay.innerHTML += e.responseText;
+            overlay.style.overflow = "auto";
+            document.body.appendChild(overlay);
+            document.body.style.overflow = "hidden";
+        });
     }
 }
 
 const users = new Users();
+
+bulkEditButton.hide();
 
 function navigate(ammount){
     users.navigate(ammount);
@@ -262,16 +320,14 @@ postData(searchForm, (e)=>{
 
 
 
-
-
-
-
-
-
-
 // opens new page popup with user data from id
 function editUserPage(id){
-    getData("../pages/edituseroverlay.php?userid="+id, (e)=>{
+    // "../pages/edituseroverlay.php?userid="+id
+    loadOverlay("../pages/edituseroverlay.php?userid="+id);
+}
+
+function loadOverlay(url){
+    getData(url, (e)=>{
         const overlay = document.createElement("div");
         overlay.classList.add("overlay-page");
 

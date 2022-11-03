@@ -86,6 +86,7 @@
     background-color: #00e0c6;
     border: solid 0 var(--text-color);
     transform: rotate3d(0, 1, 0, 180deg);
+    transition: all .6s cubic-bezier(.68,-0.55,.27,1.55);
 }
 .admin-search-result > table > tbody > tr.selected-row{
     box-shadow: inset 0px 0px 0px 2px rgb(0, 224, 198);
@@ -147,7 +148,9 @@
 .admin-search-result-page-navigator > .left{
     justify-content: flex-start;
 }
-.admin-search-result-page-navigator > .right > button, .admin-search-result-row-ammount{
+.admin-search-result-page-navigator > .right > button,
+.admin-search-result-row-ammount,
+.admin-user-search-wrapper > button{
     background-color: var(--accent-color-2);
     color: var(--text-color);
     outline: none;

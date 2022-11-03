@@ -1,7 +1,7 @@
 function postForm(e){
     e.preventDefault();
     // get data and add submitter button
-    formData = new FormData(e.target);
+    let formData = new FormData(e.target);
     formData.append(e.submitter.name, e.submitter.value);
     // create form
     const form = document.createElement("form");
@@ -16,6 +16,7 @@ function postForm(e){
     }
     // post form + submitter included
     postData(form, (e)=>{
+        console.log(e.responseText);
         var result = JSON.parse(e.responseText);
         console.log(result);
         if(result.newUserData !== undefined){
@@ -65,6 +66,20 @@ function postForm(e){
                 }, 1000);
             }, 3000);
         }
+        if("undeletedUsers" in result){
+            // delete all users except result.undeletedUsers from dom
+            users.editUsers.clearUsers();
+            for(let i=0;i<result.undeletedUsers.length;i++){
+                users.editUsers.addUser(Number(result.undeletedUsers[i]));
+            }
+            for(let i=0;i<users.editUsers.users.length;i++){
+                // add bulk delete things
+                const el = document.querySelector(".bulk-edit-table > tbody > tr > input[value='" + users.editUsers.users[i] + "']");
+                el.closest("tr").remove();
+            }
+            users.updateUserDOM();
+        }
+        users.updateUserDOM();
     }, (e)=>{
         // error
         const p = document.createElement("p");
