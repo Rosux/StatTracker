@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 04, 2022 at 01:05 AM
+-- Generation Time: Nov 05, 2022 at 12:51 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `teams` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `players` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `players` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT 'null',
   `team_goals` int(11) NOT NULL DEFAULT 0,
   `team_assists` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -40,14 +40,9 @@ CREATE TABLE `teams` (
 --
 
 INSERT INTO `teams` (`id`, `name`, `players`, `team_goals`, `team_assists`) VALUES
-(1, 'Team1', '{\"23\":{\"goals\":0,\"assists\":0},\"2\":{\"goals\":0,\"assists\":0},\"3\":{\"goals\":0,\"assists\":0},\"4\":{\"goals\":0,\"assists\":0},\"5\":{\"goals\":0,\"assists\":0},\"6\":{\"goals\":0,\"assists\":0},\"35\":{\"goals\":0,\"assists\":0},\"7\":{\"goals\":0,\"assists\":0},\"8\":{\"goals\":0,\"assists\":0},\"9\":{\"goals\":0,\"assists\":0}}', 0, 0),
-(2, 'Team2', '{\"17\":{\"goals\":0,\"assists\":0},\"2\":{\"goals\":0,\"assists\":0},\"3\":{\"goals\":0,\"assists\":0},\"4\":{\"goals\":0,\"assists\":0},\"5\":{\"goals\":0,\"assists\":0},\"6\":{\"goals\":0,\"assists\":0},\"23\":{\"goals\":3,\"assists\":1},\"7\":{\"goals\":0,\"assists\":0},\"8\":{\"goals\":0,\"assists\":0},\"9\":{\"goals\":0,\"assists\":0}}', 3, 1),
-(3, 'Team3', '{\"1\":{\"goals\":0,\"assists\":0},\"2\":{\"goals\":0,\"assists\":0},\"3\":{\"goals\":0,\"assists\":0},\"4\":{\"goals\":0,\"assists\":0},\"5\":{\"goals\":0,\"assists\":0},\"6\":{\"goals\":0,\"assists\":0},\"17\":{\"goals\":16,\"assists\":5},\"7\":{\"goals\":0,\"assists\":0},\"8\":{\"goals\":0,\"assists\":0},\"9\":{\"goals\":0,\"assists\":0}}', 0, 0),
-(4, 'name', '{\"23\":{\"goals\":0,\"assists\":0},\"2\":{\"goals\":0,\"assists\":0},\"3\":{\"goals\":0,\"assists\":0},\"4\":{\"goals\":0,\"assists\":0},\"5\":{\"goals\":0,\"assists\":0},\"6\":{\"goals\":0,\"assists\":0},\"35\":{\"goals\":0,\"assists\":0},\"7\":{\"goals\":0,\"assists\":0},\"8\":{\"goals\":0,\"assists\":0},\"9\":{\"goals\":0,\"assists\":0}}', 6432, 214),
-(8, 'dwasdsaw', NULL, 0, 0),
-(9, 'dwsadasw', NULL, 0, 0),
-(10, 'abcdefg looser', NULL, 0, 0),
-(11, 'dwsadawssdadswa', NULL, 0, 0);
+(26, 'AjaxIsSlecht', '{\"23\":{\"goals\":53135,\"assists\":13414}}', 0, 0),
+(27, 'Queens', '{\"23\":{\"goals\":53154363463463,\"assists\":211134663463},\"32\":{\"goals\":0,\"assists\":0}}', 0, 0),
+(28, 'HIHI', 'null', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -71,11 +66,20 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `goals`, `assists`, `login_token`, `admin`) VALUES
-(23, 'Jacobus', 'uwu@uwu.uwu', '$2y$10$ysLdWOVasxvgR7eKYKlPgu3R9yrDApx2Nh33PIKSvJY58VzQWfMh6', 69, 420, NULL, 4),
-(32, 'Rosux', 'uwu@uwu.uwu', '$2y$10$ysLdWOVasxvgR7eKYKlPgu3R9yrDApx2Nh33PIKSvJY58VzQWfMh6', 69, 2, NULL, 1),
-(53, 'Rosux', 'uwu@uwu.uwu', '$2y$10$ysLdWOVasxvgR7eKYKlPgu3R9yrDApx2Nh33PIKSvJY58VzQWfMh6', 69, 69, NULL, 1),
-(72, 'Messi', 'messi@football.spain', '$2y$10$IRb7mEz3LsBJKmjzBxC40OuxIDUgNyDOGg9.ncWt22FGnSAxbjIfy', 66246432, 2147483647, NULL, 4),
-(168, 'IamMe', 'me@me.me', '$2y$10$Bya7kZ.kxXo3/FGn53QX8u3Jq2.gr7OjTZOkLzFbEVmSHfPGvPhcy', 0, 0, NULL, 0);
+(23, 'JacobusF', 'uwu@uwu.uwu', '$2y$10$ysLdWOVasxvgR7eKYKlPgu3R9yrDApx2Nh33PIKSvJY58VzQWfMh6', 2147483647, 2147483647, NULL, 4),
+(32, 'Rosux', 'uwu@uwu.uwu', '$2y$10$ysLdWOVasxvgR7eKYKlPgu3R9yrDApx2Nh33PIKSvJY58VzQWfMh6', 0, 0, NULL, 0),
+(53, 'Rosux', 'uwu@uwu.uwu', '$2y$10$ysLdWOVasxvgR7eKYKlPgu3R9yrDApx2Nh33PIKSvJY58VzQWfMh6', 0, 0, NULL, 1),
+(72, 'Messi', 'messi@football.spain', '$2y$10$IRb7mEz3LsBJKmjzBxC40OuxIDUgNyDOGg9.ncWt22FGnSAxbjIfy', 0, 0, NULL, 4),
+(168, 'IamMe', 'me@me.me', '$2y$10$Bya7kZ.kxXo3/FGn53QX8u3Jq2.gr7OjTZOkLzFbEVmSHfPGvPhcy', 0, 0, NULL, 1),
+(169, 'Rosux', 'uwu@uwu.uwu', '$2y$10$ysLdWOVasxvgR7eKYKlPgu3R9yrDApx2Nh33PIKSvJY58VzQWfMh6', 0, 0, NULL, 1),
+(170, 'Rosux', 'uwu@uwu.uwu', '$2y$10$ysLdWOVasxvgR7eKYKlPgu3R9yrDApx2Nh33PIKSvJY58VzQWfMh6', 0, 0, NULL, 1),
+(171, 'IamMe', 'me@me.me', '$2y$10$Bya7kZ.kxXo3/FGn53QX8u3Jq2.gr7OjTZOkLzFbEVmSHfPGvPhcy', 0, 0, NULL, 0),
+(174, 'IamMe', 'me@me.me', '$2y$10$Bya7kZ.kxXo3/FGn53QX8u3Jq2.gr7OjTZOkLzFbEVmSHfPGvPhcy', 0, 0, NULL, 0),
+(175, 'Rosux', 'uwu@uwu.uwu', '$2y$10$ysLdWOVasxvgR7eKYKlPgu3R9yrDApx2Nh33PIKSvJY58VzQWfMh6', 0, 0, NULL, 1),
+(176, 'Rosux', 'uwu@uwu.uwu', '$2y$10$ysLdWOVasxvgR7eKYKlPgu3R9yrDApx2Nh33PIKSvJY58VzQWfMh6', 0, 0, NULL, 1),
+(177, 'IamMe', 'me@me.me', '$2y$10$Bya7kZ.kxXo3/FGn53QX8u3Jq2.gr7OjTZOkLzFbEVmSHfPGvPhcy', 0, 0, NULL, 0),
+(178, 'Rosux', 'uwu@uwu.uwu', '$2y$10$ysLdWOVasxvgR7eKYKlPgu3R9yrDApx2Nh33PIKSvJY58VzQWfMh6', 0, 0, NULL, 1),
+(179, 'Rosux', 'uwu@uwu.uwu', '$2y$10$ysLdWOVasxvgR7eKYKlPgu3R9yrDApx2Nh33PIKSvJY58VzQWfMh6', 0, 0, NULL, 1);
 
 --
 -- Indexes for dumped tables
@@ -101,13 +105,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `teams`
 --
 ALTER TABLE `teams`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=169;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=181;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
