@@ -14,6 +14,206 @@ class Admin extends User{
         }
     }
 
+    public function adminAddUserToTeam($teamId, $userId){
+        // error codes:
+        // 0 = success
+        // 1 = error
+        // 2 = not enough rights
+        if($this->admin < 2){
+            return 2;
+        }
+        // select players and convert into array
+        $stmt = $this->conn->prepare("SELECT players FROM teams WHERE id=?");
+        $stmt->execute([
+            $teamId
+        ]);
+        if($stmt->rowCount() == 0){
+            return 1;
+        }
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC)[0]["players"];
+
+
+
+        // fix
+        $data = json_decode($data, true);
+        if($data == null){
+            $data = array();
+        }
+        if(!isset($data[$userId])){
+            array_push($data, array(intval($userId)=>array("goals"=>0,"assists"=>0)));
+
+
+
+            // fix
+
+
+
+            $stmt = $this->conn->prepare("UPDATE teams SET players=? WHERE id=?");
+            $stmt->execute([
+                json_encode($data),
+                $teamId
+            ]);
+            if($stmt->rowCount() == 0){
+                return 1;
+            }
+            $this->adminUpdateUserStats($userId);
+        }
+        
+        return 0;
+    }
+
+    public function adminDeleteTeam($teamid){
+        // error codes:
+        // 0 = success
+        // 1 = error
+        // 2 = not enough rights
+        if($this->admin < 2){
+            return 2;
+        }
+        $data = null;
+        $stmt = $this->conn->prepare("SELECT players FROM teams WHERE id=?");
+        $stmt->execute([
+            $teamid
+        ]);
+        if($stmt->rowCount() != 0){
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC)[0]["players"];
+            $data = json_decode($data, true);
+        }
+        $stmt = $this->conn->prepare("DELETE FROM teams WHERE id=?");
+        $stmt->execute([
+            $teamid
+        ]);
+        if($stmt->rowCount() == 0){
+            return 1;
+        }
+        if($data != null){
+            foreach((array)$data as $key => $value){
+                $this->adminUpdateUserStats($key);
+            }
+        }
+        return 0;
+    }
+
+    public function adminUpdateTeamName($teamid, $teamName){
+        // error codes:
+        // 0 = success
+        // 1 = error
+        // 2 = not enough rights
+        if($this->admin < 2){
+            return 2;
+        }
+        $stmt = $this->conn->prepare("UPDATE teams SET name=? WHERE id=?");
+        $stmt->execute([
+            $teamName,
+            $teamid
+        ]);
+        if($stmt->rowCount() == 0){
+            return 1;
+        }
+        return 0;
+    }
+
+    // remove user from team
+    public function adminRemoveUserFromTeam($teamId, $userId){
+        // error codes:
+        // 0 = success
+        // 1 = error
+        // 2 = not enough rights
+        if($this->admin < 2){
+            return 2;
+        }
+        // select players and convert into array
+        $stmt = $this->conn->prepare("SELECT players FROM teams WHERE id=?");
+        $stmt->execute([
+            $teamId
+        ]);
+        if($stmt->rowCount() == 0){
+            return 1;
+        }
+        // convert data to json and decode to array
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC)[0]["players"];
+        $data = json_decode($data, true);
+        unset($data[strval($userId)]);
+        $stmt = $this->conn->prepare("UPDATE teams SET players=? WHERE id=?");
+        $stmt->execute([
+            json_encode($data),
+            $teamId
+        ]);
+        if($stmt->rowCount() == 0){
+            return 1;
+        }
+        $this->adminUpdateUserStats($userId);
+        return 0;
+    }
+    // update goals on team
+    public function adminUpdateUserTeamGoals($teamId, $userId, $goals){
+        // error codes:
+        // 0 = success
+        // 1 = error
+        // 2 = not enough rights
+        if($this->admin < 1){
+            return 2;
+        }
+        // select players and convert into array
+        $stmt = $this->conn->prepare("SELECT players FROM teams WHERE id=?");
+        $stmt->execute([
+            $teamId
+        ]);
+        if($stmt->rowCount() == 0){
+            return 1;
+        }
+        // convert data to json and decode to array
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC)[0]["players"];
+        $data = json_decode($data, true);
+        $data[strval($userId)]["goals"] = intval($goals);
+        $stmt = $this->conn->prepare("UPDATE teams SET players=? WHERE id=?");
+        $stmt->execute([
+            json_encode($data),
+            $teamId
+        ]);
+        if($stmt->rowCount() == 0){
+            return 1;
+        }
+        $this->adminUpdateUserStats($userId);
+        return 0;
+    }
+    // update assists on team
+    public function adminUpdateUserTeamAssists($teamId, $userId, $assists){
+        // error codes:
+        // 0 = success
+        // 1 = error
+        // 2 = not enough rights
+        if($this->admin < 1){
+            return 2;
+        }
+
+        
+        // select players and convert into array
+        $stmt = $this->conn->prepare("SELECT players FROM teams WHERE id=?");
+        $stmt->execute([
+            $teamId
+        ]);
+        if($stmt->rowCount() == 0){
+            return 1;
+        }
+        // convert data to json and decode to array
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC)[0]["players"];
+        $data = json_decode($data, true);
+        $data[strval($userId)]["assists"] = intval($assists);
+        $stmt = $this->conn->prepare("UPDATE teams SET players=? WHERE id=?");
+        $stmt->execute([
+            json_encode($data),
+            $teamId
+        ]);
+        if($stmt->rowCount() == 0){
+            return 1;
+        }
+        $this->adminUpdateUserStats($userId);
+        return 0;
+
+    }
+
+
     // create new team
     public function adminCreateTeam($teamName){
         // error codes:
@@ -35,6 +235,20 @@ class Admin extends User{
             return 1;
         }
         return 0;
+    }
+    
+    // get all teams
+    public function adminGetTeam($id){
+        // error codes:
+        // data = success
+        // 1 = error
+        $stmt = $this->conn->prepare("SELECT * FROM teams WHERE id=?");
+        $stmt->execute([$id]);
+        if($stmt->rowCount() == 0){
+            return 1;
+        }
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $data[0];
     }
 
     // get all teams
@@ -59,15 +273,15 @@ class Admin extends User{
         // initialize query
         $q = "SELECT * FROM teams WHERE 1";
         // add query filters
-        if($idFilter != ""){$q .= " AND id LIKE :id ";}
-        if($nameFilter != ""){$q .= " AND name LIKE :name ";}
-        if($playerFilter != ""){$q .= " AND players REGEXP ([^0-9])( :playerid )([^0-9]) ";}
+        if($teamid != ""){$q .= " AND id LIKE :id ";}
+        if($name != ""){$q .= " AND name LIKE :name ";}
+        if($playerid != ""){$q .= " AND players REGEXP ([^0-9])( :playerid )([^0-9]) ";}
         // prepare query
         $stmt = $this->conn->prepare($q);
         // bind query parameters
-        if($idFilter != ""){$stmt->bindValue(":id", "%".$teamid."%", PDO::PARAM_STR);}
-        if($nameFilter != ""){$stmt->bindValue(":name", "%".$name."%", PDO::PARAM_STR);}
-        if($playerFilter != ""){$stmt->bindValue(":playerid", "%".$playerid."%", PDO::PARAM_STR);}
+        if($teamid != ""){$stmt->bindValue(":id", "%".$teamid."%", PDO::PARAM_STR);}
+        if($name != ""){$stmt->bindValue(":name", "%".$name."%", PDO::PARAM_STR);}
+        if($playerid != ""){$stmt->bindValue(":playerid", "%".$playerid."%", PDO::PARAM_STR);}
         // execute cool awesome custom filtered query
         $stmt->execute();
         if($stmt->rowCount() == 0){
@@ -255,8 +469,22 @@ class Admin extends User{
         return 0;
     }
 
-    public function adminUpdateUserStats(){
+    public function adminUpdateUserStats($userId){
         // updates user stats based on all the games might take a bit of time
+        $totalGoals = 0;
+        $totalAssists = 0;
+        $data = $this->getUserTeams($userId);
+        foreach($data as $key=>$value){
+            $user = json_decode($value["players"], true);
+            $totalGoals += $user[intval($userId)]["goals"];
+            $totalAssists += $user[intval($userId)]["assists"];
+        }
+        $stmt = $this->conn->prepare("UPDATE users SET goals=?, assists=? WHERE id=?");
+        $stmt->execute([
+            $totalGoals,
+            $totalAssists,
+            $userId
+        ]);
     }
     
     public function protectPage(){

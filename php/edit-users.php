@@ -23,13 +23,6 @@ if(isset($_POST["admin"])){
     $adminData = $_POST["admin"];
 }
 
-
-
-
-// isset($varname)
-
-
-
 require_once "../php/admin-class.php";
 $admin = new Admin();
 
@@ -214,6 +207,54 @@ if(isset($_POST["update"])){
             }
         }
     }
+}elseif(isset($_POST["addToTeam"])){
+    // add users to team
+    if(!isset($_POST["adminPass"])){
+        $response["postMethod"] = "addToTeam";
+        $response["updateStatus"] .= "Admin password not set.<br>";
+        $response["error"] = true;
+        echo json_encode($response);
+        exit();
+    }
+    $result = $admin->adminComparePass($_POST["adminPass"]);
+    if($result == 1){
+        $response["postMethod"] = "addToTeam";
+        $response["updateStatus"] .= "Failed, Something went wrong try again later.<br>";
+        $response["error"] = true;
+        echo json_encode($response);
+        exit();
+    }elseif($result == 2){
+        $response["postMethod"] = "addToTeam";
+        $response["updateStatus"] .= "Wrong admin password.<br>";
+        $response["error"] = true;
+        echo json_encode($response);
+        exit();
+    }elseif($result == 0){
+
+        $response["postMethod"] = "addToTeam";
+        $response["updateStatus"] = "Users added to team.<br>";
+
+        $ids = $_POST["id"];
+        $teamId = $_POST["teamId"];
+        foreach($ids as $key=>$value){
+            $result = $admin->adminAddUserToTeam($teamId, $value);
+            if($result == 1){
+                $response["updateStatus"] = "Failed, Something went wrong try again later.<br>";
+            }
+        }
+        $response["closeOverlay"] = true;
+
+
+
+
+
+
+
+
+
+    }
+    echo json_encode($response);
+    exit();
 }
 if($response["updateStatus"] == ""){
     unset($response["updateStatus"]);

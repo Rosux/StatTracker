@@ -14,7 +14,7 @@ if(!isset($_GET["userid"])) : ?>
 ?>
 <div class="center">
     <form action="../php/edit-users.php" method="POST" class="shadow user-overlay-wrapper" onsubmit="postForm(event);">
-        <p class="form-title">Bulk Delete:</p>
+        <p class="form-title">Bulk Edit:</p>
         <table class="bulk-edit-table">
             <thead>
                 <tr>
@@ -42,10 +42,14 @@ if(!isset($_GET["userid"])) : ?>
             </tbody>
         </table>
         <div class="form-full-width">
+            <input type="text" name="teamId" placeholder="Team Id" autocomplete="off">
+        </div>
+        <div class="form-full-width">
             <input type="password" name="adminPass" placeholder="Current Admin Password" autocomplete="off">
         </div>
         <div class="form-full-width">
-            <input type="submit" value="Delete User" class="delete-button" name="delete">
+            <input type="submit" value="Delete Users" class="delete-button button" name="delete">
+            <input type="submit" value="Add Users To Team" class="button" name="addToTeam">
         </div>
     </form>
 </div>

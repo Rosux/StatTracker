@@ -24,12 +24,14 @@
 </head>
 <body>
     <?php require_once("header.php"); ?>
-    <!-- <div class="center">
+    <div class="center">
         <div class="admin-user-search-wrapper">
             <div class="admin-search-bar shadow-small">
-                <form action="../php/admin.php" method="POST">
-                    <input type="text" name="id" placeholder="Filter For Id" autocomplete="off" style="width: calc(100%/2);">
-                    <input type="text" name="teamname" placeholder="Filter For Team Name" autocomplete="off" style="width: calc(100%/2);">
+                <form action="../php/manage-team.php" method="POST">
+                    <input type="text" name="idfilter" placeholder="Filter For Id" autocomplete="off" style="width: calc(100%/2);">
+                    <input type="text" name="namefilter" placeholder="Filter For Team Name" autocomplete="off" style="width: calc(100%/2);">
+                    <input type="hidden" name="internalMethod" value="getTeams">
+                    <input type="hidden" name="id" value="true">
                 </form>
             </div>
             <div class="admin-search-result-wrapper">
@@ -40,13 +42,13 @@
                                 <th></th>
                                 <th>Id</th>
                                 <th>TeamName</th>
-                                <th>Players</th>
                                 <th>TeamGoals</th>
                                 <th>TeamAssists</th>
+                                <th>Edit Team</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="admin-search-result-error-row"><td colspan="6"><p>No Users Found</p></td></tr>
+                            <tr class="admin-search-result-error-row"><td colspan="6"><p>No Teams Found</p></td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -70,10 +72,10 @@
                     </div>
                 </div>
             </div>
+            <button style="background-color: var(--accent-color-2); font-size: inherit;" class="bulkUserButton" type="button" onclick="loadOverlay('../pages/admin-team-overlay.php');">Create New Team</button>
         </div>
-    </div> -->
+    </div>
     <div class="center">
-        <button type="button" onclick="loadOverlay('../pages/admin-team-overlay.php');">Create New Team</button>
     </div>
     <?php require_once("footer.php"); ?>
 </body>

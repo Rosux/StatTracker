@@ -16,10 +16,16 @@ function postForm(e){
     }
     // post form + submitter included
     postData(form, (e)=>{
+        console.log(e.responseText);
         var result = JSON.parse(e.responseText);
         if(result.newUserData !== undefined){
             // update user row
             users.updateUserData(result.newUserData);
+        }
+        if("closeOverlay" in result){
+            if(result.closeOverlay == true){
+                closeOverlay(document.querySelector(".overlay-page"));
+            }
         }
         if(result.postMethod === "delete" && result.error === false && result.UUID !== undefined){
             if(result.UUID instanceof Array){

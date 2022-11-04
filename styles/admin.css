@@ -54,22 +54,27 @@
     border-collapse: collapse;
     table-layout: fixed;
 }
-.admin-search-result > table > thead > tr > th:first-child{
+.admin-search-result > table > thead > tr > th:first-child,
+.bulk-edit-table > thead > tr > th:first-child{
     width: 4rem;
 }
-.admin-search-result > table > tbody > tr > td{
+.admin-search-result > table > tbody > tr > td,
+.bulk-edit-table > tbody > tr > td{
     padding: .5rem 0;
 }
-.admin-search-result > table > tbody > tr > td:first-child > p{
+.admin-search-result > table > tbody > tr > td:first-child > p,
+.bulk-edit-table > tbody > tr > td:first-child > p{
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100%;
 }
-.admin-search-result > table > tbody > tr > td:first-child > p > input{
+.admin-search-result > table > tbody > tr > td:first-child > p > input,
+.bulk-edit-table > tbody > tr > td:first-child > p > input{
     display: none;
 }
-.admin-search-result > table > tbody > tr > td:first-child > p > label{
+.admin-search-result > table > tbody > tr > td:first-child > p > label,
+.bulk-edit-table > tbody > tr > td:first-child > p > label{
     aspect-ratio: 1/1;
     height: 2rem;
     border-radius: 100%;
@@ -77,12 +82,14 @@
     cursor: pointer;
 }
 
-.admin-search-result > table > tbody > tr > td:first-child > p > input + label{
+.admin-search-result > table > tbody > tr > td:first-child > p > input + label,
+.bulk-edit-table > tbody > tr > td:first-child > p > input + label{
     background-color: transparent;
     border: solid 0.2rem var(--text-color);
     transition: all .6s cubic-bezier(.68,-0.55,.27,1.55);
 }
-.admin-search-result > table > tbody > tr > td:first-child > p > input:checked + label{
+.admin-search-result > table > tbody > tr > td:first-child > p > input:checked + label,
+.bulk-edit-table > tbody > tr > td:first-child > p > input:checked + label{
     background-color: #00e0c6;
     border: solid 0 var(--text-color);
     transform: rotate3d(0, 1, 0, 180deg);
@@ -112,8 +119,14 @@
     text-overflow: ellipsis;
     padding-left: 1ch;
 }
-.admin-search-result > table > thead, .admin-search-result > table > tbody > tr:nth-child(even){background-color: var(--accent-color-2);}
-.admin-search-result > table > tbody > tr:nth-child(odd){background-color: var(--accent-color-1);}
+.admin-search-result > table > thead, .admin-search-result > table > tbody > tr:nth-child(even),
+.bulk-edit-table > tbody > tr:nth-child(odd) > td > p > input{
+    background-color: var(--accent-color-2);
+}
+.admin-search-result > table > tbody > tr:nth-child(odd),
+.bulk-edit-table > tbody > tr:nth-child(even) > td > p > input{
+    background-color: var(--accent-color-1);
+}
 
 
 

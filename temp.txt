@@ -41,19 +41,14 @@ final:
 TODO for now quickly:
 
 
-1:  make team creator
-    inputs (name, players, goals, assists)
 
-2:  add ability to add users to team
+1:  add ability to add users to team
     from teams pannel
+
+2:  at bulk edit overlay make thing that adds users to team if not already in it
 
 3:  create random teams
     from teams pannel
-
-4:  create admin role explenation
-
-5:  at bulk edit overlay make thing that adds users to team if not already in it
-
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   Quick idea: make team table on admin.php page

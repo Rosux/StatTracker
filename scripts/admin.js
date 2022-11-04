@@ -108,7 +108,6 @@ class Users{
         const page = this.currentPage;
         this.splitUsers(Number(searchResultRowAmmount.value));
         this.navigate(page);
-        console.log("ye update dom here bitch", this.users);
         // this.updateUserDOM();
     }
     updateNewUsers(users, splitAmmount){
