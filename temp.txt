@@ -14,11 +14,11 @@ TODO
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ADMIN ROLES
-0 = nothing
-1 = can make teams and add points to teams
-2 = can add points to players
-3 = can remove accounts, update accounts
-4 = can give/remove admin rights
+0 = nothing                                   player
+1 = can add points to teams                   coach
+2 = can make teams and add points to teams    teamManager
+3 = can remove accounts, update accounts      ADMIN
+4 = can give/remove admin rights              UBERADMIN
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
@@ -40,22 +40,27 @@ final:
 
 TODO for now quickly:
 
-1:  bulk edit users
 
-2:  make team creator
+1:  make team creator
     inputs (name, players, goals, assists)
 
-3:  add ability to add users to team
+2:  add ability to add users to team
     from teams pannel
 
-4:  create random teams
+3:  create random teams
+    from teams pannel
 
-5:  create admin role explenation
+4:  create admin role explenation
 
-6:  make popup before deleting user requiring admin password (ez post with form and validate in script)
+5:  at bulk edit overlay make thing that adds users to team if not already in it
 
 
-green button at the bottom of user list (or on right side)
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  Quick idea: make team table on admin.php page
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+
 
 bulk edit features:
 1: delete users

@@ -9,7 +9,7 @@
         </a>
         <a href="home.php">Home</a>
         <?php
-            if($user->admin > 1){
+            if($user->admin > 2){
                 echo '<a href="admin.php">Admin-Panel</a>';
             }
             if($user->admin > 0){

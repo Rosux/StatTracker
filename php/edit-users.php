@@ -35,107 +35,128 @@ $admin = new Admin();
 
 $response = [
     "updateStatus" => "",
-    "updateStatus" => "",
     "error" => false
 ];
 if(isset($_POST["update"])){
-    $response["postMethod"] = "update";
-    // update user
-    // create original data and update each value
-    if(!isset($idData)){
+    if(!isset($_POST["adminPass"])){
         $response["postMethod"] = "update";
-        $response["updateStatus"] .= "No users selected.<br>";
+        $response["updateStatus"] .= "Admin password not set.<br>";
         $response["error"] = true;
         echo json_encode($response);
         exit();
-    }
-    $userData = $admin->adminGetUser($idData);
-    $updateData = [
-        "name" => $userData["name"],
-        "email" => $userData["email"],
-        "goals" => $userData["goals"],
-        "assists" => $userData["assists"],
-        "admin" => $userData["admin"]
-    ];
-    // check if data isset and change the updatedData
-    if(isset($goalsData) && $goalsData != ""){
-        $y = false;
-        if($goalsData < 0){
-            $response["updateStatus"] .= "Goals cant be negative<br>";
-            $response["error"] = true;
-            $y = true;
-        }
-        if(preg_match('/[^0-9]/', $goalsData)){
-            $response["updateStatus"] .= "Goals must be a number<br>";
-            $response["error"] = true;
-            $y = true;
-        }
-        if(!$y){
-            $updateData["goals"] = $goalsData;
-        }
-    }
-    if(isset($assistsData) && $assistsData != ""){
-        $y = false;
-        if($assistsData < 0){
-            $response["updateStatus"] .= "Assists cant be negative<br>";
-            $response["error"] = true;
-            $y = true;
-        }
-        if(preg_match('/[^0-9]/', $assistsData)){
-            $response["updateStatus"] .= "Assists must be a number<br>";
-            $response["error"] = true;
-            $y = true;
-        }
-        if(!$y){
-            $updateData["assists"] = $assistsData;
-        }
-    }
-    if(isset($adminData) && $adminData != ""){
-        $updateData["admin"] = $adminData;
-    }
-    if(isset($nameData) && $nameData != ""){
-        $x = false;
-        if(strlen($nameData)>30 || strlen($nameData)<4){
-            $response["updateStatus"] .= "Username must be between 4-30 characters<br>";
-            $response["error"] = true;
-            $x = true;
-        }
-        if(preg_match('/[^A-Za-z]/', $nameData)){
-            $response["updateStatus"] .= "username can only containt a-Z<br>";
-            $response["error"] = true;
-            $x = true;
-        }
-        if(!$x){
-            $updateData["name"] = $nameData;
-        }
-    }
-    if(isset($emailData) && $emailData != ""){
-        if(!filter_var($emailData, FILTER_VALIDATE_EMAIL)){
-            $response["updateStatus"] .= "Email is not valid<br>";
-            $response["error"] = true;
-        }else{
-            $updateData["email"] = $emailData;
-        }
-    }
-    if(isset($idData)){
-        $result = $admin->adminUpdateUser($idData, $updateData);
-        if($result == 2){
-            // not enough admin rights
-            $response["updateStatus"] .= "Incorrect Admin Rights.<br>";
-            $response["error"] = true;
-        }elseif($result == 0){
-            // user is updated
-            $response["updateStatus"] .= "Success, User Updated.<br>";
-        }elseif($result == 1){
-            // query failed
+    }else{
+        $result = $admin->adminComparePass($_POST["adminPass"]);
+        if($result == 1){
+            $response["postMethod"] = "update";
             $response["updateStatus"] .= "Failed, Something went wrong try again later.<br>";
             $response["error"] = true;
-        }elseif($result == 3){
-            // user is updated but the same as before
-            $response["updateStatus"] .= "No changes made.<br>";
+            echo json_encode($response);
+            exit();
+        }elseif($result == 2){
+            $response["postMethod"] = "update";
+            $response["updateStatus"] .= "Wrong admin password.<br>";
+            $response["error"] = true;
+            echo json_encode($response);
+            exit();
+        }elseif($result == 0){
+            $response["postMethod"] = "update";
+            // update user
+            // create original data and update each value
+            if(!isset($idData)){
+                $response["postMethod"] = "update";
+                $response["updateStatus"] .= "No users selected.<br>";
+                $response["error"] = true;
+                echo json_encode($response);
+                exit();
+            }
+            $userData = $admin->adminGetUser($idData);
+            $updateData = [
+                "name" => $userData["name"],
+                "email" => $userData["email"],
+                "goals" => $userData["goals"],
+                "assists" => $userData["assists"],
+                "admin" => $userData["admin"]
+            ];
+            // check if data isset and change the updatedData
+            if(isset($goalsData) && $goalsData != ""){
+                $y = false;
+                if($goalsData < 0){
+                    $response["updateStatus"] .= "Goals cant be negative<br>";
+                    $response["error"] = true;
+                    $y = true;
+                }
+                if(preg_match('/[^0-9]/', $goalsData)){
+                    $response["updateStatus"] .= "Goals must be a number<br>";
+                    $response["error"] = true;
+                    $y = true;
+                }
+                if(!$y){
+                    $updateData["goals"] = $goalsData;
+                }
+            }
+            if(isset($assistsData) && $assistsData != ""){
+                $y = false;
+                if($assistsData < 0){
+                    $response["updateStatus"] .= "Assists cant be negative<br>";
+                    $response["error"] = true;
+                    $y = true;
+                }
+                if(preg_match('/[^0-9]/', $assistsData)){
+                    $response["updateStatus"] .= "Assists must be a number<br>";
+                    $response["error"] = true;
+                    $y = true;
+                }
+                if(!$y){
+                    $updateData["assists"] = $assistsData;
+                }
+            }
+            if(isset($adminData) && $adminData != ""){
+                $updateData["admin"] = $adminData;
+            }
+            if(isset($nameData) && $nameData != ""){
+                $x = false;
+                if(strlen($nameData)>30 || strlen($nameData)<4){
+                    $response["updateStatus"] .= "Username must be between 4-30 characters<br>";
+                    $response["error"] = true;
+                    $x = true;
+                }
+                if(preg_match('/[^A-Za-z]/', $nameData)){
+                    $response["updateStatus"] .= "username can only containt a-Z<br>";
+                    $response["error"] = true;
+                    $x = true;
+                }
+                if(!$x){
+                    $updateData["name"] = $nameData;
+                }
+            }
+            if(isset($emailData) && $emailData != ""){
+                if(!filter_var($emailData, FILTER_VALIDATE_EMAIL)){
+                    $response["updateStatus"] .= "Email is not valid<br>";
+                    $response["error"] = true;
+                }else{
+                    $updateData["email"] = $emailData;
+                }
+            }
+            if(isset($idData)){
+                $result = $admin->adminUpdateUser($idData, $updateData);
+                if($result == 2){
+                    // not enough admin rights
+                    $response["updateStatus"] .= "Incorrect Admin Rights.<br>";
+                    $response["error"] = true;
+                }elseif($result == 0){
+                    // user is updated
+                    $response["updateStatus"] .= "Success, User Updated.<br>";
+                }elseif($result == 1){
+                    // query failed
+                    $response["updateStatus"] .= "Failed, Something went wrong try again later.<br>";
+                    $response["error"] = true;
+                }elseif($result == 3){
+                    // user is updated but the same as before
+                    $response["updateStatus"] .= "No changes made.<br>";
+                }
+            }
         }
     }
-    
 }elseif(isset($_POST["delete"])){
     // bulk delete
     if(!isset($_POST["adminPass"])){
@@ -170,13 +191,21 @@ if(isset($_POST["update"])){
                     echo json_encode($response);
                     exit();
                 }elseif($result == 0){
-                    // user is deleted
+                    // users are all deleted
+                    $response["UUID"] = $idData;
                     $response["updateStatus"] .= "Success, User Deleted.<br>";
                     echo json_encode($response);
                     exit();
                 }elseif(is_array($result)){
-                    // query failed
-                    $response["undeletedUsers"] = $result;
+                    // couldnt delete all users
+                    $responseDeletedUsers = [];
+                    for($i=0;$i<count($idData);$i++){
+                        if($admin->adminGetUser($idData[$i]) == 1){
+                            // user is deleted
+                            array_push($responseDeletedUsers, $idData[$i]);
+                        }
+                    }
+                    $response["UUID"] = $responseDeletedUsers;
                     $response["updateStatus"] .= "Couldn't delete all users.<br>";
                     $response["error"] = true;
                     echo json_encode($response);

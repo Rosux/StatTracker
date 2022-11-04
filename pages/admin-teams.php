@@ -3,7 +3,7 @@
     $admin = new Admin();
     $admin->protectPage();
     $user = $admin;
-    if($admin->admin < 3){
+    if($user->admin < 1){
         header("Location: " . "../pages/home.php");
         exit();
     }
@@ -20,18 +20,16 @@
     <link rel="stylesheet" href="../styles/admin.css">
     <link rel="stylesheet" href="../styles/overlay.css">
     <script src="../scripts/main.js"></script>
-    <script defer src="../scripts/admin.js"></script>
-    <script defer src="../scripts/update-users.js"></script>
+    <script defer src="../scripts/teams.js"></script>
 </head>
 <body>
     <?php require_once("header.php"); ?>
-    <div class="center">
+    <!-- <div class="center">
         <div class="admin-user-search-wrapper">
             <div class="admin-search-bar shadow-small">
                 <form action="../php/admin.php" method="POST">
-                    <input type="text" name="id" placeholder="Filter For Id" autocomplete="off">
-                    <input type="text" name="username" placeholder="Filter For Username" autocomplete="off">
-                    <input type="text" name="email" placeholder="Filter For E-mail" autocomplete="off">
+                    <input type="text" name="id" placeholder="Filter For Id" autocomplete="off" style="width: calc(100%/2);">
+                    <input type="text" name="teamname" placeholder="Filter For Team Name" autocomplete="off" style="width: calc(100%/2);">
                 </form>
             </div>
             <div class="admin-search-result-wrapper">
@@ -41,19 +39,17 @@
                             <tr>
                                 <th></th>
                                 <th>Id</th>
-                                <th>Username</th>
-                                <th>E-mail</th>
-                                <th>Goals</th>
-                                <th>Assists</th>
-                                <th>Edit User</th>
+                                <th>TeamName</th>
+                                <th>Players</th>
+                                <th>TeamGoals</th>
+                                <th>TeamAssists</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="admin-search-result-error-row"><td colspan="7"><p>No Users Found</p></td></tr>
+                            <tr class="admin-search-result-error-row"><td colspan="6"><p>No Users Found</p></td></tr>
                         </tbody>
                     </table>
                 </div>
-                <!-- page buttons -->
                 <div class="admin-search-result-page-navigator">
                     <div class="left">
                         <p class="current-search-result-count">Results: 0</p>
@@ -74,8 +70,10 @@
                     </div>
                 </div>
             </div>
-            <button class="bulkUserButton" style="background-color:hsl(109.6, 60%, 49%) !important;font-size:inherit;" onclick="users.editUsers.openOverlay();">BULK EDIT</button>
         </div>
+    </div> -->
+    <div class="center">
+        <button type="button" onclick="loadOverlay('../pages/admin-team-overlay.php');">Create New Team</button>
     </div>
     <?php require_once("footer.php"); ?>
 </body>

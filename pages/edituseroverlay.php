@@ -22,6 +22,7 @@ if(!isset($_GET["userid"])) : ?>
                     <th>Id</th>
                     <th>Username</th>
                     <th>E-mail</th>
+                    <th>Admin-Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,6 +34,7 @@ if(!isset($_GET["userid"])) : ?>
                     echo('<td><p>' . $userData["id"] . '</p></td>');
                     echo('<td><p>' . $userData["name"] . '</p></td>');
                     echo('<td><p>' . $userData["email"] . '</td>');
+                    echo('<td><p>' . $userData["admin"] . '</td>');
                     echo('<input type="hidden" name="id[]" value=' . $userData["id"] . '>');
                     echo('</tr>');
                 }

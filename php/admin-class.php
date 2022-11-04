@@ -14,6 +14,82 @@ class Admin extends User{
         }
     }
 
+    // create new team
+    public function adminCreateTeam($teamName){
+        // error codes:
+        // 0 = success
+        // 1 = error
+        // 2 = not enough rights
+        // INSERT INTO teams (name, players, team_goals, team_assists) VALUES (:name, :players, :team_goals, :team_assists),
+        if($this->admin < 2){
+            return 2;
+        }
+        $stmt = $this->conn->prepare("INSERT INTO teams (name, team_goals, team_assists) VALUES (:name, :team_goals, :team_assists)");
+        $teamData = [
+            "name" => htmlspecialchars($teamName),
+            "team_goals" => 0,
+            "team_assists" => 0
+        ];
+        $stmt->execute($teamData);
+        if($stmt->rowCount() == 0){
+            return 1;
+        }
+        return 0;
+    }
+
+    // get all teams
+    public function adminGetAllTeams(){
+        // error codes:
+        // data = success
+        // 1 = error
+        $stmt = $this->conn->prepare("SELECT * FROM teams");
+        $stmt->execute();
+        if($stmt->rowCount() == 0){
+            return 1;
+        }
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+    }
+
+    // get filtered teams
+    public function adminGetFilteredTeams($teamid, $name, $playerid){
+        // error codes:
+        // data = success
+        // 1 = no users found
+        // initialize query
+        $q = "SELECT * FROM teams WHERE 1";
+        // add query filters
+        if($idFilter != ""){$q .= " AND id LIKE :id ";}
+        if($nameFilter != ""){$q .= " AND name LIKE :name ";}
+        if($playerFilter != ""){$q .= " AND players REGEXP ([^0-9])( :playerid )([^0-9]) ";}
+        // prepare query
+        $stmt = $this->conn->prepare($q);
+        // bind query parameters
+        if($idFilter != ""){$stmt->bindValue(":id", "%".$teamid."%", PDO::PARAM_STR);}
+        if($nameFilter != ""){$stmt->bindValue(":name", "%".$name."%", PDO::PARAM_STR);}
+        if($playerFilter != ""){$stmt->bindValue(":playerid", "%".$playerid."%", PDO::PARAM_STR);}
+        // execute cool awesome custom filtered query
+        $stmt->execute();
+        if($stmt->rowCount() == 0){
+            return 1;
+        }
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+    }
+    
+    // find a team based on user id
+    public function getUserTeams($id){
+        // ([^0-9])( ID-HERE )([^0-9])
+        $query = "([^0-9])(".$id.")([^0-9])";
+        $stmt = $this->conn->prepare("SELECT * FROM teams WHERE players REGEXP '$query'");
+        $stmt->execute();
+        if($stmt->rowCount() == 0){
+            return 0;
+        }
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+    }
+
     public function adminComparePass($password){
         // error codes:
         // 0 = success
@@ -74,33 +150,33 @@ class Admin extends User{
         return $data[0];
     }
 
-    public function adminSetUserGoals($userId, $amount){
-        // error codes:
-        // 1 = couldnt update row
-        $stmt = $this->conn->prepare("UPDATE users SET goals=? WHERE id=?");
-        $stmt->execute([
-            $amount,
-            $userId
-        ]);
-        if($stmt->rowCount() == 0){
-            return 1;
-        }
-        return 0;
-    }
+    // public function adminSetUserGoals($userId, $amount){
+    //     // error codes:
+    //     // 1 = couldnt update row
+    //     $stmt = $this->conn->prepare("UPDATE users SET goals=? WHERE id=?");
+    //     $stmt->execute([
+    //         $amount,
+    //         $userId
+    //     ]);
+    //     if($stmt->rowCount() == 0){
+    //         return 1;
+    //     }
+    //     return 0;
+    // }
 
-    public function adminSetUserAssists($userId, $amount){
-        // error codes:
-        // 1 = couldnt update row
-        $stmt = $this->conn->prepare("UPDATE users SET assists=? WHERE id=?");
-        $stmt->execute([
-            $amount,
-            $userId
-        ]);
-        if($stmt->rowCount() == 0){
-            return 1;
-        }
-        return 0;
-    }
+    // public function adminSetUserAssists($userId, $amount){
+    //     // error codes:
+    //     // 1 = couldnt update row
+    //     $stmt = $this->conn->prepare("UPDATE users SET assists=? WHERE id=?");
+    //     $stmt->execute([
+    //         $amount,
+    //         $userId
+    //     ]);
+    //     if($stmt->rowCount() == 0){
+    //         return 1;
+    //     }
+    //     return 0;
+    // }
 
     public function adminUpdateUser($userId, $newData){
         // error codes:

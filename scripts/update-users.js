@@ -16,17 +16,34 @@ function postForm(e){
     }
     // post form + submitter included
     postData(form, (e)=>{
-        console.log(e.responseText);
         var result = JSON.parse(e.responseText);
-        console.log(result);
         if(result.newUserData !== undefined){
             // update user row
             users.updateUserData(result.newUserData);
         }
-        if(result.postMethod === "delete" && result.error === false){
-            users.removeUser(parseInt(result.UUID));
+        if(result.postMethod === "delete" && result.error === false && result.UUID !== undefined){
+            if(result.UUID instanceof Array){
+                for(let i=0;i<result.UUID.length;i++){
+                    users.removeUser(parseInt(result.UUID[i]));
+                }
+            }else{
+                users.removeUser(parseInt(result.UUID));
+            }
             // close overlay
             closeOverlay(document.querySelector(".overlay-page"));
+        }else if(result.postMethod === "delete" && result.error === true && result.UUID !== undefined){
+            if(result.UUID instanceof Array){
+                for(let i=0;i<result.UUID.length;i++){
+                    users.removeUser(parseInt(result.UUID[i]));
+                }
+            }else{
+                users.removeUser(parseInt(result.UUID));
+            }
+            for(let i=0;i<result.UUID.length;i++){
+                // add bulk delete things
+                const el = document.querySelector(".bulk-edit-table > tbody > tr > input[value='" + parseInt(result.UUID[i]) + "']");
+                el.closest("tr").remove();
+            }
         }
         // remove previous popups
         const pOverlay = document.querySelectorAll(".update-text-overlay");
@@ -65,19 +82,6 @@ function postForm(e){
                     p.remove();
                 }, 1000);
             }, 3000);
-        }
-        if("undeletedUsers" in result){
-            // delete all users except result.undeletedUsers from dom
-            users.editUsers.clearUsers();
-            for(let i=0;i<result.undeletedUsers.length;i++){
-                users.editUsers.addUser(Number(result.undeletedUsers[i]));
-            }
-            for(let i=0;i<users.editUsers.users.length;i++){
-                // add bulk delete things
-                const el = document.querySelector(".bulk-edit-table > tbody > tr > input[value='" + users.editUsers.users[i] + "']");
-                el.closest("tr").remove();
-            }
-            users.updateUserDOM();
         }
         users.updateUserDOM();
     }, (e)=>{
